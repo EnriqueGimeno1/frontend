@@ -1,0 +1,27 @@
+.card-container {
+  background-color: blue;
+  padding: 1rem;
+  display: flex;
+}
+
+.picture-container {
+  background-color: beige;
+  /* padding: 0.3rem; */
+  width: 100px;
+  height: 100px;
+  display: flex;
+}
+
+.profile-picture {
+  background-color: black;
+  width: 100%;
+  object-fit: cover;
+}
+
+.user-info-container {
+  background-color: blueviolet;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1rem;
+}
