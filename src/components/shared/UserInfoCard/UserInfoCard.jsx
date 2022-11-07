@@ -20,7 +20,9 @@ export default function UserInfoCard({
       <div className="user-info-container">
         <span className="user-name">{userName}</span>
         <span className="work-position">{userWorkPosition} </span>
-        <a href="">Cerrar Sesión</a>
+        <a href="" className="logout-link">
+          Cerrar Sesión
+        </a>
       </div>
     </div>
   );
