@@ -55,10 +55,6 @@ export const CreateUser = () => {
           idNumber: Yup.number().required("Requerido"),
           phoneNumber: Yup.number("Escriba Numero").required("Requerido"),
           designatedVehicleId: Yup.string(),
-          // terms: Yup.boolean().oneOf([true], "Debe de aceptar las condiciones"),
-          // jobType: Yup.string()
-          //   .notOneOf(["it-jr"], "Esta opcion no es permitida")
-          //   .required("Requerido"),
         })}
       >
         {(Formik) => (
@@ -93,8 +89,6 @@ export const CreateUser = () => {
               name="branchOffice"
               placeholder="Sucursal"
             />
-            {/* SELECT */}
-            <CustomInput label="Cargo" name="accessLevel" placeholder="Cargo" />
             <CustomInput
               label="Nacionalidad"
               name="nationality"
@@ -119,20 +113,18 @@ export const CreateUser = () => {
               placeholder="Estado de la Licencia"
               type="driverLicenseStatus"
             /> */}
+
+            <CustomSelect label="Cargo" name="accesLevel">
+              <option value="">Elija una Opción</option>
+              <option value="Gerente de Sucursal">Gerente de Sucursal</option>
+              <option value="Conductor">Conductor</option>
+              <option value="Operador de Despacho">Operador de Despacho</option>
+            </CustomSelect>
             <CustomInput
               label="Numero de Licencia"
               name="designatedVehicleId"
               placeholder="Numero de Licencia"
             />
-
-            <CustomSelect label="Job Type" name="jobType">
-              <option value="">Pick something</option>
-              <option value="developer">Developer</option>
-              <option value="designer">Designer</option>
-              <option value="it-senior">It Senior</option>
-              <option value="it-jr">It Jr</option>
-            </CustomSelect>
-            <CustomCheckBox label="Terms & Conditions" name="terms" />
             <button type="submit">Enviar</button>
           </Form>
         )}
