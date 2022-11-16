@@ -2,7 +2,7 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import "./FormsStyles.css";
 
-import { CustomCheckBox, CustomSelect, CustomInput } from "../../shared";
+import { CustomSelect, CustomInput } from "../../shared";
 
 export const CreateUser = () => {
   return (
