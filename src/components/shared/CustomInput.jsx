@@ -18,8 +18,8 @@ export const CustomInput = ({ label, ...props }) => {
         className="text-input"
         {...field}
         {...props}
-        value={userInput}
-        onChange={acceptOnlyNumbers}
+        // value={userInput}
+        // onChange={acceptOnlyNumbers}
       />
       <ErrorMessage
         name={props.name}
