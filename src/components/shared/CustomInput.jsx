@@ -29,7 +29,14 @@ export const CustomInput = ({ label, ...props }) => {
 				}
 
 				// CASE: Letters only
+				case "justLetters": {
+					const regex = /[\p{Letter}\s]+/gu;
+					if (regex.test(value.toString()) || value === "") {
+						helper.setValue(value);
+					}
 
+					break;
+				}
 				default: {
 					break;
 				}

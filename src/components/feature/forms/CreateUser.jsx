@@ -59,7 +59,12 @@ export const CreateUser = () => {
 			>
 				{(Formik) => (
 					<Form>
-						<CustomInput label="Nombre" name="firstName" placeholder="Nombre" />
+						<CustomInput
+							label="Nombre"
+							name="firstName"
+							placeholder="Nombre"
+							allowedCharacters="justLetters"
+						/>
 						<CustomInput
 							label="Apellido"
 							name="lastName"
