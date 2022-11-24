@@ -1,6 +1,6 @@
 import "./App.css";
-import Login from "./components/feature/Login/Login";
-import AdminPanel from "./components/feature/AdminPanel/AdminPanel";
+import Login from "./components/pages/Login/Login";
+import AdminPanel from "./components/pages/AdminPanel/AdminPanel";
 import { CreateUser } from "./components/feature/forms/CreateUser";
 import { CreateClient } from "./components/feature/forms/CreateClient";
 import { CreateDestination } from "./components/feature/forms/CreateDestination";
