@@ -2,7 +2,7 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import "./FormsStyles.css";
 
-import { CustomSelect, CustomInput } from "../../shared";
+import { CustomInput } from "../../shared";
 
 export const CreateProduct = () => {
   return (
@@ -15,7 +15,7 @@ export const CreateProduct = () => {
           code: "",
           category: "",
           description: "",
-          weight: true,
+          weight: "",
           length: "",
           width: "",
           height: "",
@@ -24,32 +24,40 @@ export const CreateProduct = () => {
           console.log(values);
         }}
         validationSchema={Yup.object({
-          name: Yup.string()
+          name: Yup.string("Caracteres Incorrectos")
             .max(15, "Debe de tener 15 caracteres o menos")
             .required("Requerido"),
-          code: Yup.string()
+          code: Yup.string("Caracteres Incorrectos")
             .max(15, "Debe de tener 15 caracteres o menos")
             .required("Requerido"),
-          category: Yup.string()
+          category: Yup.string("Caracteres Incorrectos")
             .max(15, "Debe de tener 15 caracteres o menos")
             .required("Requerido"),
-          description: Yup.string()
+          description: Yup.string("Caracteres Incorrectos")
             .max(20, "Debe de tener 20 caracteres o menos")
             .required("Requerido"),
-          weight: Yup.number().required("Requerido"),
-          length: Yup.number().required("Requerido"),
-          width: Yup.number().required("Requerido"),
-          height: Yup.number().required("Requerido"),
+          weight: Yup.number("El valor debe ser un número").required(
+            "Requerido"
+          ),
+          length: Yup.number("El valor debe ser un número").required(
+            "Requerido"
+          ),
+          width: Yup.number("El valor debe ser un número").required(
+            "Requerido"
+          ),
+          height: Yup.number("El valor debe ser un número").required(
+            "Requerido"
+          ),
         })}
       >
         {(Formik) => (
           <Form>
             <CustomInput label="Nombre" name="name" placeholder="Nombre" />
-            <CustomInput label="Codigo" name="code" placeholder="Codigo" />
+            <CustomInput label="Código" name="code" placeholder="1234" />
             <CustomInput
-              label="Categoria"
+              label="Categoría"
               name="category"
-              placeholder="Categoria"
+              placeholder="Categoría"
             />
             <CustomInput
               label="Descripción"
@@ -60,27 +68,31 @@ export const CreateProduct = () => {
               label="Peso"
               name="weight"
               placeholder="Peso"
-              type="number"
+              allowedcharacters="positiveNumber"
+              maxLength={8}
             />
             <CustomInput
               label="Largo"
               name="length"
               placeholder="Largo"
-              type="number"
+              allowedcharacters="positiveNumber"
+              maxLength={8}
             />
             <CustomInput
               label="Ancho"
               name="width"
               placeholder="Ancho"
-              type="number"
+              allowedcharacters="positiveNumber"
+              maxLength={8}
             />
             <CustomInput
               label="Altura"
               name="height"
               placeholder="Altura"
-              type="number"
+              allowedcharacters="positiveNumber"
+              maxLength={8}
             />
-            <button type="submit">Enviar</button>
+            <button type="submit">Registrar</button>
           </Form>
         )}
       </Formik>

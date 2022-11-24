@@ -22,24 +22,29 @@ export const CreateOrder = () => {
           console.log(values);
         }}
         validationSchema={Yup.object({
-          orderNumber: Yup.number().required("Requerido"),
-          branchOffice: Yup.string().required("Requerido"),
-          orderType: Yup.string().required("Requerido"),
+          orderNumber: Yup.number("Debe ser un número").required("Requerido"),
+          branchOffice: Yup.string("Caracteres Incorrectos").required(
+            "Requerido"
+          ),
+          orderType: Yup.string("Caracteres Incorrectos").required("Requerido"),
         })}
       >
         {(Formik) => (
           <Form>
             <CustomInput
-              label="Numero de Orden"
+              label="Número de Orden"
               name="orderNumber"
-              placeholder="Numero de Orden"
+              placeholder="001234234"
               type="number"
             />
-            <CustomInput
+            <CustomSelect
               label="Sucursal"
               name="branchOffice"
               placeholder="Sucursal"
-            />
+            >
+              <option value="">Elija Sucursal</option>
+            </CustomSelect>
+
             <CustomSelect label="receptionPointId" name="receptionPointId">
               <option value="">Elija el Destino</option>
             </CustomSelect>
@@ -55,7 +60,7 @@ export const CreateOrder = () => {
               placeholder="Articulos"
             />
 
-            <button type="submit">Enviar</button>
+            <button type="submit">Crear Orden</button>
           </Form>
         )}
       </Formik>

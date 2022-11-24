@@ -20,17 +20,15 @@ export const CreateVehicle = () => {
           console.log(values);
         }}
         validationSchema={Yup.object({
-          status: Yup.string()
+          status: Yup.string("Caracteres Incorrectos")
             .max(15, "Debe de tener 15 caracteres o menos")
             .required("Requerido"),
         })}
       >
         {(Formik) => (
           <Form>
-            <CustomInput label="Estado" name="status" placeholder="Estado" />
-
             <CustomSelect label="Sucursal" name="branchOfficeId">
-              <option value="">Seleccione una Marca</option>
+              <option value="">Seleccione Marca</option>
             </CustomSelect>
 
             <CustomInput
@@ -39,7 +37,7 @@ export const CreateVehicle = () => {
               placeholder="Capacidad"
             />
             <CustomInput label="Modelo" name="model" placeholder="Modelo" />
-            <button type="submit">Enviar</button>
+            <button type="submit">Registrar</button>
           </Form>
         )}
       </Formik>

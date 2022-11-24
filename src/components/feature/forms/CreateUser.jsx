@@ -28,20 +28,20 @@ export const CreateUser = () => {
           console.log(values);
         }}
         validationSchema={Yup.object({
-          firstName: Yup.string()
+          firstName: Yup.string("Caracteres Incorrectos")
             .max(20, "Debe de tener 20 caracteres o menos")
             .required("Requerido"),
-          lastName: Yup.string()
+          lastName: Yup.string("Caracteres Incorrectos")
             .max(20, "Debe de tener 20 caracteres o menos")
             .required("Requerido"),
-          email: Yup.string()
+          email: Yup.string("Caracteres Incorrectos")
             .email("El correo no tiene un formato válido")
             .required("Requerido"),
-          password: Yup.string()
+          password: Yup.string("Caracteres Incorrectos")
             .required("Por favor escriba su contraseña")
             .min(8, "Debe contener al menos 8 caracteres")
             .max(20, "Debe contener un maximo de 20 caracteres"),
-          confirmPassword: Yup.string()
+          confirmPassword: Yup.string("Caracteres Incorrectos")
             .required("Las contraseñas deben coincidir")
             .oneOf(
               [Yup.ref("password"), null],
@@ -49,12 +49,22 @@ export const CreateUser = () => {
             ),
 
           isActive: Yup.boolean().required("Requerido"),
-          branchOffice: Yup.string().required("Requerido"),
-          accessLevel: Yup.string().required("Requerido"),
-          nationality: Yup.string().required("Requerido"),
-          idNumber: Yup.number().required("Requerido"),
-          phoneNumber: Yup.number("Escriba Numero").required("Requerido"),
-          designatedVehicleId: Yup.string(),
+          branchOffice: Yup.string("Caracteres Incorrectos").required(
+            "Requerido"
+          ),
+          accessLevel: Yup.string("Caracteres Incorrectos").required(
+            "Requerido"
+          ),
+          nationality: Yup.string("Caracteres Incorrectos").required(
+            "Requerido"
+          ),
+          idNumber: Yup.number("El valor debe ser un número").required(
+            "Requerido"
+          ),
+          phoneNumber: Yup.number("El valor debe ser un número").required(
+            "Requerido"
+          ),
+          designatedVehicleId: Yup.string("Caracteres Incorrectos"),
         })}
       >
         {(Formik) => (
@@ -76,7 +86,7 @@ export const CreateUser = () => {
             <CustomInput
               label="Correo Electronico"
               name="email"
-              placeholder="email@google.com"
+              placeholder="correo@abrecaminos.com"
               type="email"
             />
             <CustomInput
@@ -118,12 +128,12 @@ export const CreateUser = () => {
               label="Telefono"
               name="phoneNumber"
               placeholder="Telefono"
-              maxLength={13}
+              maxLength={11}
               allowedcharacters="positiveIntegers"
             />
 
             <CustomSelect label="Cargo" name="accesLevel">
-              <option value="">Elija una Opción</option>
+              <option value="">Seleccionar Cargo</option>
               <option value="Gerente de Sucursal">Gerente de Sucursal</option>
               <option value="Operador de Despacho">Operador de Despacho</option>
               <option value="Conductor">Conductor</option>
@@ -142,7 +152,7 @@ export const CreateUser = () => {
               allowedcharacters="positiveIntegers"
               maxLength={15}
             />
-            <button type="submit">Enviar</button>
+            <button type="submit">Registrar</button>
           </Form>
         )}
       </Formik>

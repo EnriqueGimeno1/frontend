@@ -2,7 +2,7 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import "./FormsStyles.css";
 
-import { CustomSelect, CustomInput } from "../../shared";
+import { CustomInput } from "../../shared";
 
 export const CreateClient = () => {
   return (
@@ -20,10 +20,10 @@ export const CreateClient = () => {
           console.log(values);
         }}
         validationSchema={Yup.object({
-          clientName: Yup.string()
-            .max(15, "Debe de tener 15 caracteres o menos")
+          clientName: Yup.string("Caracteres Incorrectos")
+            .max(40, "Debe de tener 40 caracteres o menos")
             .required("Requerido"),
-          email: Yup.string()
+          email: Yup.string("Caracteres Incorrectos")
             .email("El correo no tiene un formato válido")
             .required("Requerido"),
           receptionPoints: Yup.number("Escriba una Ubicacion").required(
@@ -38,26 +38,31 @@ export const CreateClient = () => {
               label="Nombre"
               name="ClientName"
               placeholder="Nombre"
+              allowedcharacters="justLetters"
+              maxLength={45}
             />
             <CustomInput
               label="Correo Electronico"
               name="email"
-              placeholder="Email@google.com"
+              placeholder="correo@abrecaminos.com"
               type="email"
             />
 
-            <CustomSelect label="receptionPoint" name="receptionPoint">
-              <option value="">Elija el Destino</option>
-            </CustomSelect>
-
             <CustomInput
-              label="Telefono"
-              name="phoneNumber"
-              placeholder="Telefono"
-              type="number"
+              label="Puntos de Recepción"
+              name="receptionPoint"
+              placeholder="Puntos de Recepción"
             />
 
-            <button type="submit">Enviar</button>
+            <CustomInput
+              label="Número de Contacto"
+              name="phoneNumber"
+              placeholder="Número Telefónico"
+              allowedcharacters="positiveIntegers"
+              maxLength={11}
+            />
+
+            <button type="submit">Registrar</button>
           </Form>
         )}
       </Formik>
