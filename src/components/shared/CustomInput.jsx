@@ -27,6 +27,7 @@ export const CustomInput = ({ label, ...props }) => {
           }
           break;
         }
+
         // CASE: Letters only
         case "justLetters": {
           const regex = /^[a-zA-ZáéíóúüÁÉÍÓÚÜñÑ\s]+$/;
@@ -37,6 +38,27 @@ export const CustomInput = ({ label, ...props }) => {
 
           break;
         }
+        // CASE: Positive numbers only
+        case "positiveNumber": {
+          const regex = /^[+]?([0-9]+(?:[.][0-9]*)?|.[0-9]+)$/;
+          if (regex.test(value.toString()) || value === "") {
+            helper.setValue(value);
+            console.log(value);
+          }
+
+          break;
+        }
+        // CASE: Numbers only
+        case "numbers": {
+          const regex = /^[(-9)-9]\d*$/;
+          if (regex.test(value.toString()) || value === "") {
+            helper.setValue(value);
+            console.log(value);
+          }
+
+          break;
+        }
+
         default: {
           break;
         }
