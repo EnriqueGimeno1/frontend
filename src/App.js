@@ -37,7 +37,7 @@ function App() {
               ("nav-link ", ({ isActive }) => (isActive ? activeClassName : ""))
             }
           >
-            Admin{" "}
+            Admin
           </NavLink>
         </nav>
       </div>
