@@ -2,13 +2,16 @@
 	background-color: hsl(186, 100%, 10%);
 	width: 258px;
 	box-shadow: 0px 0px 5px 0px rgb(0, 0, 0);
+	display: flex;
 }
 
 .nav-container {
 	display: flex;
 	flex-direction: column;
 	text-decoration: none;
-	color: aliceblue;
+	/* Prevent shadows form children to be cast outside the container */
+	clip-path: inset(0px 0px 0px 0px);
+	flex: 1;
 }
 
 .side-nav-link,
@@ -24,18 +27,18 @@
 	padding: 1rem;
 	padding-bottom: 1.3rem;
 	padding-left: 1.5rem;
-	border-radius: 0.2rem;
 	/* background-color: rgb(3, 53, 50); */
-
 	color: rgb(100, 208, 216);
+	transition: all 0.15s;
 }
 
 .side-nav-link:hover {
 	background-color: rgb(0, 61, 68);
+	box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 1);
 }
 
 .side-nav-link:active {
-	background-color: rgb(0, 61, 68);
+	background-color: rgb(0, 38, 43);
 }
 
 .side-nav-active {
