@@ -1,15 +1,15 @@
 .panel-container {
-  display: flex;
-  flex-direction: column;
-  background-color: brown;
+	display: flex;
+	flex-direction: column;
+	/* background-color: brown; */
 
-  height: 100vh;
+	height: 100vh;
 }
 
 .bottom-panel {
-  background-color: rgb(84, 69, 99);
+	/* background-color: rgb(84, 69, 99); */
 
-  display: flex;
-  flex-direction: row;
-  flex: 1;
+	display: flex;
+	flex-direction: row;
+	flex: 1;
 }
