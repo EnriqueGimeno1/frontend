@@ -9,45 +9,45 @@ import { CreateVehicleModel } from "./components/feature/forms/CreateVehicleMode
 import { Navigate, NavLink, Route, Routes } from "react-router-dom";
 
 function App() {
-  let activeClassName = "nav-active";
-  return (
-    <div className="App">
-      <div className="app-menu">
-        <header>{/* <h1 className="App-header">COMPONENTS</h1> */}</header>
-        <nav>
-          <NavLink
-            to=""
-            className={
-              ("nav-link ", ({ isActive }) => (isActive ? activeClassName : ""))
-            }
-          >
-            Home
-          </NavLink>
-          <NavLink
-            to="login"
-            className={
-              ("nav-link ", ({ isActive }) => (isActive ? activeClassName : ""))
-            }
-          >
-            Login
-          </NavLink>
-          <NavLink
-            to="admin-panel"
-            className={
-              ("nav-link ", ({ isActive }) => (isActive ? activeClassName : ""))
-            }
-          >
-            Admin
-          </NavLink>
-        </nav>
-      </div>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/admin-panel" element={<AdminPanel />} />
-        <Route path="/*" element={<Navigate to="/" />} />
-      </Routes>
-    </div>
-  );
+	let activeClassName = "nav-active";
+	return (
+		<div className="App">
+			<div className="app-menu">
+				<header>{/* <h1 className="App-header">COMPONENTS</h1> */}</header>
+				<nav>
+					<NavLink
+						to=""
+						className={({ isActive }) =>
+							isActive ? activeClassName : "nav-link"
+						}
+					>
+						Home
+					</NavLink>
+					<NavLink
+						to="login"
+						className={({ isActive }) =>
+							isActive ? activeClassName : "nav-link"
+						}
+					>
+						Login
+					</NavLink>
+					<NavLink
+						to="admin-panel"
+						className={({ isActive }) =>
+							isActive ? activeClassName : "nav-link"
+						}
+					>
+						Admin
+					</NavLink>
+				</nav>
+			</div>
+			<Routes>
+				<Route path="/" element={<Login />} />
+				<Route path="/admin-panel" element={<AdminPanel />} />
+				<Route path="/*" element={<Navigate to="/" />} />
+			</Routes>
+		</div>
+	);
 }
 
 export default App;
