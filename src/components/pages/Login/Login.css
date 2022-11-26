@@ -1,6 +1,5 @@
 .container {
 	height: 100vh;
-	/* background-color: blueviolet; */
 	display: flex;
 	justify-content: center;
 	align-items: center;
