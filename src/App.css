@@ -7,6 +7,7 @@
 	z-index: 10;
 	opacity: 20%;
 }
+
 .app-menu:hover {
 	opacity: 100%;
 }
@@ -38,4 +39,5 @@
 	/* color: rgb(106, 192, 188); */
 	background-color: rgb(1, 63, 60);
 	/* font-weight: bold; */
+	pointer-events: none;
 }
