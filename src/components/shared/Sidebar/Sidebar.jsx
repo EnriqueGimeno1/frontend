@@ -2,5 +2,5 @@ import React from "react";
 import "./Sidebar.css";
 
 export default function Sidebar() {
-  return <div className="sidebar-container">Sidebar</div>;
+	return <div className="sidebar-container"></div>;
 }
