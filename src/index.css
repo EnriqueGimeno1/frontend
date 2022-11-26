@@ -7,9 +7,10 @@
 }
 
 body {
-	background-color: rgb(4, 51, 49);
+	/* background-color: rgb(4, 51, 49);
 	background-color: hsl(194, 61%, 11%);
-	background-color: hsl(194, 61%, 11%);
+	background-color: hsl(194, 61%, 11%); */
+	color: rgb(132, 192, 207);
 	background-color: hsl(188, 100%, 9%);
 
 	margin: 0;
