@@ -8,11 +8,11 @@ export default function AdminPanel() {
   const userActions = [
     {
       text: "Sucursales",
-      path: "./",
+      path: "/create-branch-office",
     },
     {
       text: "Usuarios",
-      path: "./",
+      path: "/create-destination",
     },
   ];
   return (
