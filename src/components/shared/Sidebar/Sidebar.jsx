@@ -1,6 +1,7 @@
 import React from "react";
 import "./Sidebar.css";
 import { NavLink } from "react-router-dom";
+import { UserProfile } from "../UserProfile/UserProfile";
 
 export default function Sidebar({ userActions }) {
   let activeClassName = "side-nav-active";
@@ -24,6 +25,7 @@ export default function Sidebar({ userActions }) {
           );
         })}
       </nav>
+      <UserProfile />
     </div>
   );
 }
