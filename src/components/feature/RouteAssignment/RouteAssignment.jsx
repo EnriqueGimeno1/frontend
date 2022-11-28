@@ -11,17 +11,20 @@ export const RouteAssignment = () => {
 				<SelectionList />
 				<SelectionList />
 			</div>
-			<div className="load-bar-container">
+			<div className="load-bar-section">
 				<LoadBar />
 			</div>
-			<div className="bottom-selection-panel">
-				<div className="details-container">
-					<span className="text1">text 1</span>
-					<span className="text2">text 1</span>
-				</div>
-				<div className="action-container">
-					<button className="button button1" />
-					<button className="button button2" />
+			<div className="bottom-section">
+				<div className="bottom-selection-container">
+					<div className="details-container">
+						<span className="selection-info">Información de capacidad</span>
+						<span className="selection-info">Información extra</span>
+						<span className="selection-info">Información extra</span>
+					</div>
+					<div className="action-container">
+						<button className="button button1">Reestablecer</button>
+						<button className="button button2">Asignar</button>
+					</div>
 				</div>
 			</div>
 		</div>
