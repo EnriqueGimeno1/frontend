@@ -1,0 +1,42 @@
+.list-element-container {
+  padding: 0.3rem;
+  display: flex;
+  margin-bottom: 0.3rem;
+  background-color: hsl(186, 100%, 15%);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.6);
+}
+.picture-container {
+  padding: 0.3rem;
+  background-color: hsl(186, 100%, 12%);
+}
+.picture {
+  height: 65px;
+  width: 65px;
+  object-fit: cover;
+}
+.info-container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0.5rem;
+  flex: 1;
+}
+.element-title,
+.element-text,
+.element-text2 {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  padding-bottom: 0.2rem;
+  font-weight: 100;
+}
+.element-title {
+  font-weight: bold;
+  text-transform: uppercase;
+  /* background-color: rgb(60, 143, 139); */
+}
+.element-text {
+  /* background-color: rgb(49, 49, 85); */
+}
+.element-text2 {
+  /* background-color: rgb(122, 44, 96); */
+}
