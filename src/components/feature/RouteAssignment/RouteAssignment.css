@@ -1,7 +1,54 @@
 .assignment-container {
-	height: 100vh;
-	display: flex;
-	justify-content: center;
-	padding-top: 10rem;
-	/* align-items: center; */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: 10rem;
+  align-items: center;
+  background-color: rgb(32, 100, 55);
+}
+.selection-panel-container {
+  background-color: rgb(58, 127, 145);
+  padding: 0.3rem;
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  justify-content: space-between;
+}
+.load-bar-container {
+  background-color: rgb(133, 26, 115);
+  padding: 0.3rem;
+  width: 100%;
+  max-width: 1200px;
+}
+.bottom-panel {
+  background-color: rgb(40, 14, 70);
+  padding: 0.3rem;
+  width: 100%;
+  max-width: 1200px;
+}
+.details-container {
+  background-color: rgb(83, 26, 43);
+  padding: 0.3rem;
+}
+.text1 {
+  background-color: rgb(146, 137, 40);
+  padding: 0.3rem;
+}
+.text2 {
+  background-color: rgb(141, 89, 41);
+  padding: 0.3rem;
+}
+.action-container {
+  background-color: rgb(32, 92, 100);
+  padding: 0.3rem;
+}
+.button {
+  background-color: rgb(174, 226, 29);
+  padding: 0.3rem;
+}
+.button1 {
+  padding: 0.3rem;
+}
+.button2 {
+  padding: 0.3rem;
 }
