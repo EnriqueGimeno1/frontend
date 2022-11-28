@@ -7,19 +7,18 @@ export const SelectionList = () => {
     <div className="selection-list-container">
       <h1 className="title">Conductores</h1>
       <div className="list-container">
-        <div className="list-element"></div>
-        <div className="list-element"></div>
-        <div className="list-element"></div>
-        <div className="list-element"></div>
-        <div className="list-element"></div>
-        <div className="list-element"></div>
-        <div className="list-element"></div>
-        <div className="list-element"></div>
-        <div className="list-element"></div>
-        <div className="list-element"></div>
-        <div className="list-element"></div>
-        <div className="list-element"></div>
-        <div className="list-element"></div>
+        <ListElement className="list-element" />
+        <ListElement className="list-element" />
+        <ListElement className="list-element" />
+        <ListElement className="list-element" />
+        <ListElement className="list-element" />
+        <ListElement className="list-element" />
+        <ListElement className="list-element" />
+        <ListElement className="list-element" />
+        <ListElement className="list-element" />
+        <ListElement className="list-element" />
+        <ListElement className="list-element" />
+        <ListElement className="list-element" />
       </div>
     </div>
   );
