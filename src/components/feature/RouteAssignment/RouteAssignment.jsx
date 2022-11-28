@@ -18,8 +18,8 @@ export const RouteAssignment = () => {
 				<div className="bottom-selection-container">
 					<div className="details-container">
 						<span className="selection-info">Información de capacidad</span>
-						<span className="selection-info">Información extra</span>
-						<span className="selection-info">Información extra</span>
+						<span className="selection-info">Cantidad de Destinos</span>
+						<span className="selection-info">Hora de salida estimada</span>
 					</div>
 					<div className="action-container">
 						<button className="button button1">Reestablecer</button>
