@@ -1,38 +1,88 @@
 .user-profile-container {
-  /* height: 100px; */
-  padding: 0.3rem;
-  display: flex;
-  background-color: rgb(0, 61, 68);
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 1);
+	/* height: 100px; */
+	padding: 0.3rem;
+	display: flex;
+	background-color: rgb(0, 61, 68);
+	box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 1);
 }
-.picture-container {
-  /* background-color: rgb(132, 132, 212); */
-  display: flex;
+.profile-picture-container {
+	background-color: hsl(186, 100%, 9%);
+	display: flex;
+	padding: 0.3rem;
+	justify-content: center;
+	align-items: center;
+	border-radius: 0.3rem;
 }
-.picture {
-  height: 70px;
-  width: 70px;
+
+.profile-picture {
+	height: 67px;
+	width: 67px;
+	object-fit: cover;
+	border-radius: 0.2rem;
 }
+
 .user-info-container {
-  /* background-color: rgb(114, 24, 107); */
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+	min-width: 0;
+	padding: 0.2rem;
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	justify-content: stretch;
 }
 .user-info {
-  /* background-color: rgb(47, 63, 29); */
-  width: 100%;
-  padding: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  overflow: hidden;
-  word-break: break-all;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+	/* background-color: rgb(47, 63, 29); */
+	/* padding: 0.5rem; */
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	font-weight: 100;
+	padding-bottom: 0.3rem;
+}
+
+.user-name {
+	font-weight: 100;
+	font-size: 1.2rem;
+	margin-top: -0.3rem;
+	overflow: hidden;
+	word-break: break-all;
+	white-space: nowrap;
+}
+
+.user-access-level {
+	font-size: 0.8rem;
+	/* background-color: rgb(63, 29, 57); */
+	overflow: hidden;
+	word-break: break-all;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 .user-actions {
-  /* background-color: rgb(143, 132, 32); */
-  display: flex;
-  justify-content: flex-end;
+	/* background-color: rgb(143, 132, 32); */
+	display: flex;
+	justify-content: flex-end;
+}
+
+.user-action-button {
+	font-family: inherit;
+	color: inherit;
+	text-transform: uppercase;
+	font-size: 14px;
+	outline: none;
+	border: 0;
+	border-radius: 0.2rem;
+	font-weight: 100;
+	padding: 3px 10px;
+	padding-bottom: 5px;
+	background-color: hsl(185, 100%, 17%);
+	cursor: pointer;
+	box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.6);
+}
+
+.user-action-button:hover {
+	background-color: hsl(185, 100%, 21%);
+}
+
+.user-action-button:active {
+	background-color: hsl(185, 100%, 15%);
+	color: rgb(143, 219, 215);
 }
