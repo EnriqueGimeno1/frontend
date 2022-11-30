@@ -1,9 +1,10 @@
 .selection-list-container {
 	/* background-color: rgb(32, 116, 88); */
 	width: 350px;
-	height: 100%;
-	min-height: 350px;
-	max-height: 500px;
+	/* height: 100%;
+	min-height: 500px;
+	max-height: calc(100vh - 500px); */
+	height: 500px;
 	display: flex;
 	flex-direction: column;
 	background-color: rgb(0, 50, 56);
