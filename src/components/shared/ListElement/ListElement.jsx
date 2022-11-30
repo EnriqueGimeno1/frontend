@@ -1,6 +1,5 @@
 // import React from "react";
 import "./ListElement.css";
-import { useEffect } from "react";
 
 export const ListElement = ({ props }) => {
 	return (
