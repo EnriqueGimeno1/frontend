@@ -1,17 +1,18 @@
-import React from "react";
+// import React from "react";
 import "./ListElement.css";
+import { useEffect } from "react";
 
-export const ListElement = ({ imageSrc, title, text1, text2 }) => {
-  return (
-    <div className="list-element-container">
-      <div className="picture-container">
-        <img className="picture" src={imageSrc} alt="Miniatura" />
-      </div>
-      <div className="info-container">
-        <span className="element-title">{title}</span>
-        <span className="element-text">{text1}</span>
-        <span className="element-text2">{text2}</span>
-      </div>
-    </div>
-  );
+export const ListElement = ({ props }) => {
+	return (
+		<div className="list-element-container">
+			<div className="picture-container">
+				<img className="picture" src={props.imageSrc} alt="Miniatura" />
+			</div>
+			<div className="info-container">
+				<span className="element-title">{props.title}</span>
+				<span className="element-text">{props.text1}</span>
+				<span className="element-text2">{props.text2}</span>
+			</div>
+		</div>
+	);
 };
