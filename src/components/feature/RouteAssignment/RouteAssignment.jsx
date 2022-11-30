@@ -2,8 +2,19 @@ import React from "react";
 import "./RouteAssignment.css";
 import { SelectionList } from "../../shared/SelectionList/SelectionList";
 import { LoadBar } from "../LoadBar/LoadBar";
+import axios from "axios";
 
 export const RouteAssignment = () => {
+	const getAllInfo = () => {
+		// GET request for remote image in node.js
+		axios({
+			method: "get",
+			url: "http://localhost:3333/users/",
+			responseType: "json",
+		}).then(function (response) {
+			console.log(response.data);
+		});
+	};
 	return (
 		<div className="assignment-container">
 			<div className="selection-panel-container">
@@ -23,7 +34,9 @@ export const RouteAssignment = () => {
 					</div>
 					<div className="action-container">
 						<button className="button button1">Reestablecer</button>
-						<button className="button button2">Asignar</button>
+						<button className="button button2" onClick={getAllInfo}>
+							Asignar
+						</button>
 					</div>
 				</div>
 			</div>
