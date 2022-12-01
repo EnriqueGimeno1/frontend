@@ -4,6 +4,9 @@ import { SelectionList } from "../../shared/SelectionList/SelectionList";
 import { LoadBar } from "../LoadBar/LoadBar";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import driverThumbnail from "../../../assets/images/driver.png";
+import orderThumbnail from "../../../assets/images/order.png";
+import packageThumbnail from "../../../assets/images/package.png";
 
 export const RouteAssignment = () => {
 	//Get server information when component mounts
@@ -15,15 +18,13 @@ export const RouteAssignment = () => {
 		sectionTitle: "Conductores",
 		elementsList: [
 			{
-				imageSrc:
-					"https://media.istockphoto.com/id/907605102/es/foto/hombre-atractivo.jpg?s=612x612&w=is&k=20&c=GsSs_u03geAAy0_1oW4_RR-42Nvh8wWTcJqf-jWBvHw=",
+				imageSrc: driverThumbnail,
 				title: "Primero",
 				text1: "enrique",
 				text2: "gimeno",
 			},
 			{
-				imageSrc:
-					"https://media.istockphoto.com/id/539681702/es/vector/bandera-de-piratas-icono-sobre-blanco-de-fondo-vector-de-de.jpg?s=612x612&w=0&k=20&c=wvchsVcbYqxAuhM3NXfeu0GAGnDq0evBHFRpRReIWvU=",
+				imageSrc: driverThumbnail,
 				title: "Segundo",
 				text1: "ernecius",
 				text2: "Figueroa",
@@ -36,15 +37,13 @@ export const RouteAssignment = () => {
 		sectionTitle: "Ordenes",
 		elementsList: [
 			{
-				imageSrc:
-					"https://media.istockphoto.com/id/907605102/es/foto/hombre-atractivo.jpg?s=612x612&w=is&k=20&c=GsSs_u03geAAy0_1oW4_RR-42Nvh8wWTcJqf-jWBvHw=",
+				imageSrc: orderThumbnail,
 				title: "Primero",
 				text1: "enrique",
 				text2: "gimeno",
 			},
 			{
-				imageSrc:
-					"https://media.istockphoto.com/id/539681702/es/vector/bandera-de-piratas-icono-sobre-blanco-de-fondo-vector-de-de.jpg?s=612x612&w=0&k=20&c=wvchsVcbYqxAuhM3NXfeu0GAGnDq0evBHFRpRReIWvU=",
+				imageSrc: orderThumbnail,
 				title: "Segundo",
 				text1: "ernecius",
 				text2: "Figueroa",
@@ -56,15 +55,13 @@ export const RouteAssignment = () => {
 		sectionTitle: "Paquetes",
 		elementsList: [
 			{
-				imageSrc:
-					"https://media.istockphoto.com/id/907605102/es/foto/hombre-atractivo.jpg?s=612x612&w=is&k=20&c=GsSs_u03geAAy0_1oW4_RR-42Nvh8wWTcJqf-jWBvHw=",
+				imageSrc: packageThumbnail,
 				title: "Primero",
 				text1: "enrique",
 				text2: "gimeno",
 			},
 			{
-				imageSrc:
-					"https://media.istockphoto.com/id/539681702/es/vector/bandera-de-piratas-icono-sobre-blanco-de-fondo-vector-de-de.jpg?s=612x612&w=0&k=20&c=wvchsVcbYqxAuhM3NXfeu0GAGnDq0evBHFRpRReIWvU=",
+				imageSrc: packageThumbnail,
 				title: "Segundo",
 				text1: "ernecius",
 				text2: "Figueroa",
@@ -78,8 +75,11 @@ export const RouteAssignment = () => {
 			url: "http://localhost:3333/users/",
 			responseType: "json",
 		}).then(function (response) {
-			//   console.log(response.data);
-			setAssignmentInfo(JSON.stringify(response.data));
+			console.log(response.data);
+			setAssignmentInfo({
+				sectionTitle: "Conductores",
+				elementsList: response.data,
+			});
 		});
 	}, []);
 
@@ -96,7 +96,9 @@ export const RouteAssignment = () => {
 			<div className="bottom-section">
 				<div className="bottom-selection-container">
 					<div className="details-container">
-						<span className="selection-info">Información adicional</span>
+						<span className="selection-info">
+							{JSON.stringify(assignmentInfo)}
+						</span>
 						<span className="selection-info">Cantidad de Destinos</span>
 						<span className="selection-info">Hora de salida estimada</span>
 					</div>
