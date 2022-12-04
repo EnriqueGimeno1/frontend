@@ -9,9 +9,12 @@ import orderThumbnail from "../../../assets/images/order.png";
 import packageThumbnail from "../../../assets/images/package.png";
 
 export const RouteAssignment = () => {
-	//Get server information when component mounts
-
+	// Data to be sent to the server for assignment
 	const [assignmentInfo, setAssignmentInfo] = useState("estado");
+	// Driver data from the server
+	const [driverInfo, setDriverInfo] = useState([]);
+	// Order data from the server
+	const [ordersInfo, setOrdersInfo] = useState([]);
 
 	// Drivers
 	const drivers = {
@@ -69,15 +72,29 @@ export const RouteAssignment = () => {
 		],
 	};
 
+	//Get server information when component mounts
 	useEffect(() => {
+		// Get driver data
 		axios({
 			method: "get",
-			url: "http://localhost:3333/users/",
+			url: "http://localhost:3333/users/drivers",
 			responseType: "json",
 		}).then(function (response) {
 			console.log(response.data);
-			setAssignmentInfo({
+			setDriverInfo({
 				sectionTitle: "Conductores",
+				elementsList: response.data,
+			});
+		});
+		// Get Orders data
+		axios({
+			method: "get",
+			url: "http://localhost:3333/orders",
+			responseType: "json",
+		}).then(function (response) {
+			console.log(response.data);
+			setOrdersInfo({
+				sectionTitle: "Ordenes",
 				elementsList: response.data,
 			});
 		});
@@ -96,9 +113,7 @@ export const RouteAssignment = () => {
 			<div className="bottom-section">
 				<div className="bottom-selection-container">
 					<div className="details-container">
-						<span className="selection-info">
-							{JSON.stringify(assignmentInfo)}
-						</span>
+						<span className="selection-info">{JSON.stringify(ordersInfo)}</span>
 						<span className="selection-info">Cantidad de Destinos</span>
 						<span className="selection-info">Hora de salida estimada</span>
 					</div>
