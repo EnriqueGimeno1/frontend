@@ -8,56 +8,69 @@ import AdminPanel from "./components/pages/AdminPanel/AdminPanel";
 // import { CreateVehicleModel } from "./components/feature/forms/CreateVehicleModel";
 import { Navigate, NavLink, Route, Routes } from "react-router-dom";
 import { RouteAssignment } from "./components/feature/RouteAssignment/RouteAssignment";
+import { DriverSelectionPanel } from "./components/feature/DriverSelectionPanel/DriverSelectionPanel";
 
 function App() {
-  let activeClassName = "nav-active";
-  return (
-    <div className="App">
-      <div className="app-menu">
-        <header>{/* <h1 className="App-header">COMPONENTS</h1> */}</header>
-        <nav>
-          <NavLink
-            to=""
-            className={({ isActive }) =>
-              isActive ? activeClassName : "nav-link"
-            }
-          >
-            Home
-          </NavLink>
-          <NavLink
-            to="login"
-            className={({ isActive }) =>
-              isActive ? activeClassName : "nav-link"
-            }
-          >
-            Login
-          </NavLink>
-          <NavLink
-            to="admin-panel"
-            className={({ isActive }) =>
-              isActive ? activeClassName : "nav-link"
-            }
-          >
-            Admin
-          </NavLink>
-          <NavLink
-            to="route-assignment"
-            className={({ isActive }) =>
-              isActive ? activeClassName : "nav-link"
-            }
-          >
-            Route
-          </NavLink>
-        </nav>
-      </div>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/admin-panel" element={<AdminPanel />} />
-        <Route path="/route-assignment" element={<RouteAssignment />} />
-        <Route path="/*" element={<Navigate to="/" />} />
-      </Routes>
-    </div>
-  );
+	let activeClassName = "nav-active";
+	return (
+		<div className="App">
+			<div className="app-menu">
+				<header>{/* <h1 className="App-header">COMPONENTS</h1> */}</header>
+				<nav>
+					<NavLink
+						to=""
+						className={({ isActive }) =>
+							isActive ? activeClassName : "nav-link"
+						}
+					>
+						Home
+					</NavLink>
+					<NavLink
+						to="login"
+						className={({ isActive }) =>
+							isActive ? activeClassName : "nav-link"
+						}
+					>
+						Login
+					</NavLink>
+					<NavLink
+						to="admin-panel"
+						className={({ isActive }) =>
+							isActive ? activeClassName : "nav-link"
+						}
+					>
+						Admin
+					</NavLink>
+					<NavLink
+						to="route-assignment"
+						className={({ isActive }) =>
+							isActive ? activeClassName : "nav-link"
+						}
+					>
+						Route
+					</NavLink>
+					<NavLink
+						to="driver-selection-panel"
+						className={({ isActive }) =>
+							isActive ? activeClassName : "nav-link"
+						}
+					>
+						Driver
+					</NavLink>
+				</nav>
+			</div>
+			<Routes>
+				<Route path="/" element={<Login />} />
+				<Route path="/admin-panel" element={<AdminPanel />} />
+				<Route path="/route-assignment" element={<RouteAssignment />} />
+				<Route
+					path="/driver-selection-panel"
+					element={<DriverSelectionPanel />}
+				/>
+				<Route path="/*" element={<Navigate to="/" />} />
+			</Routes>
+		</div>
+	);
 }
 
 export default App;
