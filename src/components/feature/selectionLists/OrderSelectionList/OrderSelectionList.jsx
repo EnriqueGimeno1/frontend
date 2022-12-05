@@ -1,7 +1,12 @@
 import { OrderListElement } from "../../listElements/OrderListElement/OrderListElement";
 import "../SelectionList.css";
 
-export const OrderSelectionList = ({ ordersInfo, setOrdersInfo }) => {
+export const OrderSelectionList = ({
+	ordersInfo,
+	setOrdersInfo,
+	selectedOrder,
+	setSelectedOrder,
+}) => {
 	return (
 		<div className="selection-list-container">
 			<h1 className="title">Ordenes</h1>

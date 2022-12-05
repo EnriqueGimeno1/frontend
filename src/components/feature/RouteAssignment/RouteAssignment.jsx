@@ -18,12 +18,17 @@ export const RouteAssignment = () => {
 	const [driversInfo, setDriversInfo] = useState([]);
 	// Order data from the server
 	const [ordersInfo, setOrdersInfo] = useState([]);
-	// SELECTED INFORMATION
-	const [selectedDriver, setSelectedDriver] = useState();
-	// SELECTED ORDER
+	// CURRENTLY SELECTED ORDER (Not necessarily checked)
 	const [selectedOrder, setSelectedOrder] = useState();
-	// SELECTED PACKAGES
+
+	// ASSIGNATION STATE
+	// Checked Driver
+	const [checkedDriver, setCheckedDriver] = useState();
+	// Checked Order
+	const [checkedOrder, setCheckedOrder] = useState();
+	// Checked Packages
 	const [selectedPackages, setSelectedPackages] = useState();
+
 	// Data to be sent to the server for assignment
 	const [assignmentInfo, setAssignmentInfo] = useState("estado");
 
@@ -68,7 +73,12 @@ export const RouteAssignment = () => {
 	const driversProps = { driversInfo, setDriversInfo };
 
 	// orders properties to be sent to DriverSelectionList
-	const ordersProps = { ordersInfo, setOrdersInfo };
+	const ordersProps = {
+		ordersInfo,
+		setOrdersInfo,
+		selectedOrder,
+		setSelectedOrder,
+	};
 
 	// Package properties to be sent to DriverSelectionList
 	const packageProps = {};
