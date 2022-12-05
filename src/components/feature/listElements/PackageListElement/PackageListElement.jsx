@@ -8,9 +8,11 @@ export const PackageListElement = ({ props }) => {
 				<img className="picture" src={packageThumbnail} alt="Miniatura" />
 			</div>
 			<div className="info-container">
-				<span className="element-title">{props.firstName}</span>
-				<span className="element-text">{props.idNumber}</span>
-				<span className="element-text2">{props.phoneNumber}</span>
+				<span className="element-title">{props.productName}</span>
+				<span className="element-text">{props.quantity}</span>
+				<span className="element-text2">
+					Peso: {props.weight} Volumen: {props.volume}
+				</span>
 			</div>
 		</div>
 	);

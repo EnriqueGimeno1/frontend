@@ -81,14 +81,14 @@ export const RouteAssignment = () => {
 	};
 
 	// Package properties to be sent to DriverSelectionList
-	const packageProps = {};
+	const packageProps = { selectedOrder };
 
 	return (
 		<div className="assignment-container">
 			<div className="selection-panel-container">
 				<DriverSelectionList {...driversProps} />
 				<OrderSelectionList {...ordersProps} />
-				<PackageSelectionList elementsList={[]} />
+				<PackageSelectionList {...packageProps} />
 			</div>
 			<div className="load-bar-section">
 				<LoadBar />
