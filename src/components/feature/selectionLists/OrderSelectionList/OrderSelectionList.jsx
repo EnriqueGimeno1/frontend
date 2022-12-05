@@ -12,7 +12,17 @@ export const OrderSelectionList = ({
 			<h1 className="title">Ordenes</h1>
 			<div className="list-container">
 				{ordersInfo.map((element, index) => {
-					return <OrderListElement key={index} props={element} />;
+					return (
+						<OrderListElement
+							key={index}
+							props={{
+								element: { ...element },
+								setSelectedOrder,
+								setOrdersInfo,
+								selectedOrder,
+							}}
+						/>
+					);
 				})}
 			</div>
 		</div>
