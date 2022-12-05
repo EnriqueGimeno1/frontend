@@ -5,7 +5,27 @@
 	border-radius: 6px;
 	background-color: hsl(186, 100%, 15%);
 	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+	transition: all 0.2s;
 }
+
+.list-element-container:hover {
+	padding: 0.3rem;
+	display: flex;
+	margin-bottom: 0.5rem;
+	border-radius: 6px;
+	background-color: hsl(186, 100%, 18%);
+	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+.list-element-container:active {
+	padding: 0.3rem;
+	display: flex;
+	margin-bottom: 0.5rem;
+	border-radius: 6px;
+	background-color: hsl(186, 100%, 12%);
+	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+}
+
 .picture-container {
 	padding: 0.4rem;
 	background-color: hsl(186, 100%, 10%);
