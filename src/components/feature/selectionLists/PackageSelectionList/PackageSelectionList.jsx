@@ -7,7 +7,7 @@ export const PackageSelectionList = ({ selectedOrder }) => {
 		<div className="selection-list-container">
 			<h1 className="title">Paquetes</h1>
 			<div className="list-container">
-				{selectedOrder.tasks
+				{selectedOrder && selectedOrder.tasks
 					? selectedOrder.tasks.map((element, index) => {
 							return <PackageListElement key={index} props={element} />;
 					  })
