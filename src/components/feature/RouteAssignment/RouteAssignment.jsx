@@ -1,8 +1,7 @@
-import React from "react";
 import "./RouteAssignment.css";
 import { LoadBar } from "../LoadBar/LoadBar";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import driverThumbnail from "../../../assets/images/driver.png";
 import orderThumbnail from "../../../assets/images/order.png";
 import packageThumbnail from "../../../assets/images/package.png";
@@ -25,12 +24,20 @@ export const RouteAssignment = () => {
 	// Checked Driver
 	const [checkedDriver, setCheckedDriver] = useState();
 	// Checked Order
-	const [checkedOrder, setCheckedOrder] = useState();
+	const [checkedOrders, setCheckedOrders] = useState();
 	// Checked Packages
 	const [selectedPackages, setSelectedPackages] = useState();
 
 	// Data to be sent to the server for assignment
 	const [assignmentInfo, setAssignmentInfo] = useState("estado");
+
+	// Uncheck and deselect elements on selection panels
+	const clearSelection = useCallback(() => {
+		setSelectedOrder();
+		setCheckedDriver();
+		setCheckedOrders();
+		setSelectedPackages();
+	}, []);
 
 	//Get server information when component mounts
 	useEffect(() => {
@@ -103,7 +110,9 @@ export const RouteAssignment = () => {
 						<span className="selection-info">Hora de salida estimada</span>
 					</div>
 					<div className="action-container">
-						<button className="button button1">Reestablecer</button>
+						<button className="button button1" onClick={clearSelection}>
+							Desmarcar
+						</button>
 						<button className="button button2">Asignar</button>
 					</div>
 				</div>
