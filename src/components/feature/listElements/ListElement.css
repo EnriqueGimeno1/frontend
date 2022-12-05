@@ -26,6 +26,11 @@
 	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
 }
 
+/* Disable pointer-events for elements inside ListElement */
+.list-element-container * {
+	pointer-events: none;
+}
+
 .picture-container {
 	padding: 0.4rem;
 	background-color: hsl(186, 100%, 10%);
