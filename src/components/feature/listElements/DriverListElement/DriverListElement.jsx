@@ -10,7 +10,7 @@ export const DriverListElement = ({ props }) => {
 			</div>
 			<div className="info-container">
 				<span className="element-title">{props.firstName}</span>
-				<span className="element-text">{props.idNumber}</span>
+				<span className="element-text">V-{props.idNumber}</span>
 				<span className="element-text2">{props.phoneNumber}</span>
 			</div>
 		</div>
