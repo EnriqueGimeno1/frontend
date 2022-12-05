@@ -77,7 +77,12 @@ export const RouteAssignment = () => {
 	}, []);
 
 	// Drivers properties to be sent to DriverSelectionList
-	const driversProps = { driversInfo, setDriversInfo };
+	const driversProps = {
+		driversInfo,
+		setDriversInfo,
+		checkedDriver,
+		setCheckedDriver,
+	};
 
 	// orders properties to be sent to DriverSelectionList
 	const ordersProps = {
