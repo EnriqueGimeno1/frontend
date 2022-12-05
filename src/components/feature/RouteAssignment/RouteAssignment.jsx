@@ -9,12 +9,18 @@ import orderThumbnail from "../../../assets/images/order.png";
 import packageThumbnail from "../../../assets/images/package.png";
 
 export const RouteAssignment = () => {
-	// Data to be sent to the server for assignment
-	const [assignmentInfo, setAssignmentInfo] = useState("estado");
 	// Driver data from the server
 	const [driverInfo, setDriverInfo] = useState([]);
 	// Order data from the server
 	const [ordersInfo, setOrdersInfo] = useState([]);
+	// SELECTED INFORMATION
+	const [selectedDriver, setSelectedDriver] = useState();
+	// SELECTED ORDER
+	const [selectedOrder, setSelectedOrder] = useState();
+	// SELECTED PACKAGES
+	const [selectedPackages, setSelectedPackages] = useState();
+	// Data to be sent to the server for assignment
+	const [assignmentInfo, setAssignmentInfo] = useState("estado");
 
 	// Drivers
 	const drivers = {
@@ -113,7 +119,7 @@ export const RouteAssignment = () => {
 			<div className="bottom-section">
 				<div className="bottom-selection-container">
 					<div className="details-container">
-						<span className="selection-info">{JSON.stringify(ordersInfo)}</span>
+						<span className="selection-info">{JSON.stringify(driverInfo)}</span>
 						<span className="selection-info">Cantidad de Destinos</span>
 						<span className="selection-info">Hora de salida estimada</span>
 					</div>
