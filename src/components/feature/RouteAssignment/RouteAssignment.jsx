@@ -88,7 +88,7 @@ export const RouteAssignment = () => {
 	};
 
 	// Package properties to be sent to DriverSelectionList
-	const packageProps = { selectedOrder };
+	const packageProps = { selectedOrder, selectedPackages, setSelectedPackages };
 
 	return (
 		<div className="assignment-container">

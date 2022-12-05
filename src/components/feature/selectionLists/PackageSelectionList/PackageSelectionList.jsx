@@ -1,7 +1,11 @@
 import { PackageListElement } from "../../listElements/PackageListElement/PackageListElement";
 import "../SelectionList.css";
 
-export const PackageSelectionList = ({ selectedOrder }) => {
+export const PackageSelectionList = ({
+	selectedOrder,
+	selectedPackages,
+	setSelectedPackages,
+}) => {
 	console.log(selectedOrder);
 	return (
 		<div className="selection-list-container">
@@ -9,7 +13,16 @@ export const PackageSelectionList = ({ selectedOrder }) => {
 			<div className="list-container">
 				{selectedOrder && selectedOrder.tasks
 					? selectedOrder.tasks.map((element, index) => {
-							return <PackageListElement key={index} props={element} />;
+							return (
+								<PackageListElement
+									key={index}
+									props={{
+										element: { ...element },
+										selectedPackages,
+										setSelectedPackages,
+									}}
+								/>
+							);
 					  })
 					: ""}
 			</div>
