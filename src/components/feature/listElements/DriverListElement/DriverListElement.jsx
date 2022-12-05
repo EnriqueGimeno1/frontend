@@ -1,6 +1,6 @@
 import "../ListElement.css";
-
 import driverThumbnail from "../../../../assets/images/driver.png";
+import { useCallback } from "react";
 
 export const DriverListElement = ({
 	props: {
@@ -11,7 +11,15 @@ export const DriverListElement = ({
 		setCheckedDriver,
 	},
 }) => {
-	console.log(element);
+	// console.log(element);
+	const selectDriver = useCallback(
+		(event) => {
+			// console.log(element);
+			setCheckedDriver({ ...element });
+		},
+		[element, setCheckedDriver]
+	);
+
 	return (
 		<div className="list-element-container">
 			<div className="picture-container">
