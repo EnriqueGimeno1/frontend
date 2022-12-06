@@ -37,6 +37,13 @@
 	pointer-events: none;
 }
 
+.selected-list-element:hover {
+	background-color: hsl(187, 58%, 23%);
+	border: 3px solid hsl(187, 100%, 39%);
+	/* box-shadow: inset 0 0 40px 0 rgba(0, 0, 0, 0.6); */
+	pointer-events: none;
+}
+
 /* Disable pointer-events for elements inside ListElement */
 .list-element-container * {
 	pointer-events: none;
