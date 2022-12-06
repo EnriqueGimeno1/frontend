@@ -52,7 +52,7 @@ export const RouteAssignment = () => {
 			// Add 'selected' property to every driver object
 			let transformedDriversInfo = response.data.map((driver) => ({
 				...driver,
-				checked: "false",
+				checked: false,
 			}));
 			setDriversInfo(transformedDriversInfo);
 		});
@@ -67,8 +67,8 @@ export const RouteAssignment = () => {
 
 			let transformedOrdersInfo = response.data.map((order) => ({
 				...order,
-				currentlySelected: "false",
-				checked: "false", //Possible values: false, partially,completely
+				currentlySelected: false,
+				checked: false, //Possible values: false, partially,completely
 				numberOfPackages: order.tasks.length,
 			}));
 			// Add 'selected' property to every driver object
