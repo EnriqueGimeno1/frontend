@@ -40,6 +40,18 @@ export const RouteAssignment = () => {
 		setDriversInfo(transformedDriversInfo);
 	}, []);
 
+	// Initialize or disable drivers checked state
+	const uncheckOrdersInfo = useCallback((ordersInformation) => {
+		let transformedOrdersInfo = ordersInformation.map((order) => ({
+			...order,
+			currentlySelected: false,
+			checked: false, //Possible values: false, partially,completely
+			numberOfPackages: order.tasks.length,
+		}));
+		// Add 'selected' property to every driver object
+		setOrdersInfo(transformedOrdersInfo);
+	}, []);
+
 	// Uncheck and deselect elements on selection panels
 	const clearSelection = useCallback(() => {
 		setSelectedOrder();
@@ -47,7 +59,8 @@ export const RouteAssignment = () => {
 		setCheckedOrders();
 		setSelectedPackages();
 		uncheckDriversInfo(driversInfo);
-	}, [driversInfo, uncheckDriversInfo]);
+		uncheckOrdersInfo(ordersInfo);
+	}, [driversInfo, ordersInfo, uncheckDriversInfo, uncheckOrdersInfo]);
 
 	//Get server information when component mounts
 	useEffect(() => {
