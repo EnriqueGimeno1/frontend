@@ -17,6 +17,7 @@ export const OrderSelectionList = ({
 							key={index}
 							props={{
 								element: { ...element },
+								ordersInfo,
 								setSelectedOrder,
 								setOrdersInfo,
 								selectedOrder,

@@ -4,21 +4,37 @@ import orderThumbnail from "../../../../assets/images/order.png";
 import { useCallback } from "react";
 
 export const OrderListElement = ({
-	props: { element, setSelectedOrder, setOrdersInfo, selectedOrder },
+	props: {
+		element,
+		ordersInfo,
+		setSelectedOrder,
+		setOrdersInfo,
+		selectedOrder,
+	},
 }) => {
-	// Element State
 	// Mark order as selected
-
-	const selectOrder = useCallback(
-		(event) => {
-			// console.log(element);
-			setSelectedOrder({ ...element });
-		},
-		[element, setSelectedOrder]
-	);
+	const selectOrder = useCallback(() => {
+		const updatedOrdersInfo = ordersInfo.map((order) => {
+			if (order.orderNumber === element.orderNumber) {
+				return { ...order, checked: true };
+			} else {
+				return { ...order, checked: false };
+			}
+		});
+		setOrdersInfo(updatedOrdersInfo);
+		setSelectedOrder({ ...element });
+	}, [element, ordersInfo, setOrdersInfo, setSelectedOrder]);
 
 	return (
-		<div className="list-element-container" onClick={selectOrder}>
+		<div
+			className={[
+				"list-element-container",
+				element.checked ? "selected-list-element" : "",
+			]
+				.join(" ")
+				.trim()}
+			onClick={selectOrder}
+		>
 			<div className="picture-container">
 				<img className="picture" src={orderThumbnail} alt="Miniatura" />
 			</div>
