@@ -31,13 +31,23 @@ export const RouteAssignment = () => {
 	// Data to be sent to the server for assignment
 	const [assignmentInfo, setAssignmentInfo] = useState("estado");
 
+	// Initialize or disable drivers checked state
+	const uncheckDriversInfo = useCallback((driversInformation) => {
+		let transformedDriversInfo = driversInformation.map((driver) => ({
+			...driver,
+			checked: false,
+		}));
+		setDriversInfo(transformedDriversInfo);
+	}, []);
+
 	// Uncheck and deselect elements on selection panels
 	const clearSelection = useCallback(() => {
 		setSelectedOrder();
 		setCheckedDriver();
 		setCheckedOrders();
 		setSelectedPackages();
-	}, []);
+		uncheckDriversInfo(driversInfo);
+	}, [driversInfo, uncheckDriversInfo]);
 
 	//Get server information when component mounts
 	useEffect(() => {
@@ -115,7 +125,16 @@ export const RouteAssignment = () => {
 						<span className="selection-info">Hora de salida estimada</span>
 					</div>
 					<div className="action-container">
-						<button className="button button1" onClick={clearSelection}>
+						<button
+							className="button button1"
+							onClick={clearSelection}
+							disabled={
+								!selectedOrder &&
+								!checkedDriver &&
+								!checkedOrders &&
+								!selectedPackages
+							}
+						>
 							Desmarcar
 						</button>
 						<button className="button button2">Asignar</button>
