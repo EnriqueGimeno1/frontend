@@ -1,6 +1,7 @@
 import "../ListElement.css";
 import driverThumbnail from "../../../../assets/images/driver.png";
 import { useCallback } from "react";
+import { useState } from "react";
 
 export const DriverListElement = ({
 	props: {
@@ -11,17 +12,28 @@ export const DriverListElement = ({
 		setCheckedDriver,
 	},
 }) => {
-	// console.log(element);
-	const selectDriver = useCallback(
-		(event) => {
-			// console.log(element);
-			setCheckedDriver({ ...element });
-		},
-		[element, setCheckedDriver]
-	);
+	const selectDriver = useCallback(() => {
+		const updatedDriversInfo = driversInfo.map((driver) => {
+			if (driver.idNumber === element.idNumber) {
+				return { ...driver, checked: true };
+			} else {
+				return { ...driver, checked: false };
+			}
+		});
+		setDriversInfo(updatedDriversInfo);
+		setCheckedDriver({ ...element });
+	}, [driversInfo, element, setCheckedDriver, setDriversInfo]);
 
 	return (
-		<div className="list-element-container">
+		<div
+			className={[
+				"list-element-container",
+				element.checked ? "selected-list-element" : "",
+			]
+				.join(" ")
+				.trim()}
+			onClick={selectDriver}
+		>
 			<div className="picture-container">
 				<img className="picture" src={driverThumbnail} alt="Miniatura" />
 			</div>
