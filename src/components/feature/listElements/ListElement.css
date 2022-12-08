@@ -31,8 +31,8 @@
 }
 
 .selected-list-element {
-	background-color: hsl(187, 58%, 23%);
-	border: 3px solid hsl(189, 62%, 47%);
+	background-color: hsl(186, 100%, 18%);
+	border: 3px solid hsl(189, 96%, 35%);
 	/* box-shadow: inset 0 0 40px 0 rgba(0, 0, 0, 0.6); */
 	pointer-events: none;
 }
@@ -90,4 +90,19 @@
 }
 .element-text2 {
 	/* background-color: rgb(122, 44, 96); */
+}
+
+.check-box {
+	z-index: 10;
+	background-color: cadetblue;
+	pointer-events: all;
+	cursor: grab;
+}
+
+.check-box-all {
+	background-color: rgb(95, 107, 160);
+}
+
+.check-box-partial {
+	background-color: rgb(160, 132, 95);
 }

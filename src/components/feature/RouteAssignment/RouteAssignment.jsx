@@ -99,6 +99,8 @@ export const RouteAssignment = () => {
 		});
 	}, []);
 
+	// CHILDREN PROPS
+
 	// Drivers properties to be sent to DriverSelectionList
 	const driversProps = {
 		driversInfo,
