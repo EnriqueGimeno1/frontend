@@ -44,7 +44,7 @@
 }
 
 .side-nav-active {
-	background-color: rgb(1, 63, 60);
+	background-color: hsl(186, 100%, 8%);
 	pointer-events: none;
 }
 
