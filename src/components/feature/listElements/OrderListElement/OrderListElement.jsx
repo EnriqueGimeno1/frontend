@@ -43,6 +43,7 @@ export const OrderListElement = ({
 				<span className="element-text">{element.clientName}</span>
 				<span className="element-text2">{element.numberOfPackages}</span>
 			</div>
+			<div className="check-box">Check</div>
 		</div>
 	);
 };
