@@ -9,19 +9,29 @@ import AdminPanel from "./components/pages/AdminPanel/AdminPanel";
 import { Navigate, NavLink, Route, Routes } from "react-router-dom";
 import { RouteAssignment } from "./components/feature/RouteAssignment/RouteAssignment";
 import { useState } from "react";
+import ManagerPanel from "./components/pages/ManagerPanel/ManagerPanel";
+import OperatorPanel from "./components/pages/OperatorPanel/OperatorPanel";
+import DriverPanel from "./components/pages/DriverPanel/DriverPanel";
 
 function App() {
 	let activeClassName = "nav-active";
 	const [authenticatedUser, setAuthenticatedUser] = useState();
 
 	const props = { authenticatedUser, setAuthenticatedUser };
+
 	return (
 		<div className="App">
 			<Routes>
 				<Route index element={<Login {...props} />} />
-				<Route path="admin-panel" element={<AdminPanel />}>
+				<Route path="admin-panel" element={<AdminPanel {...props} />}></Route>
+				<Route
+					path="manager-panel"
+					element={<ManagerPanel {...props} />}
+				></Route>
+				<Route path="operator-panel" element={<OperatorPanel {...props} />}>
 					<Route path="route-assignment" element={<RouteAssignment />} />
 				</Route>
+				<Route path="driver-panel" element={<DriverPanel {...props} />}></Route>
 				<Route path="/*" element={<Navigate to="/" />} />
 			</Routes>
 

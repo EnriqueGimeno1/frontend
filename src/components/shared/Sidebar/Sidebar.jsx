@@ -3,7 +3,7 @@ import "./Sidebar.css";
 import { NavLink } from "react-router-dom";
 import { UserProfile } from "../UserProfile/UserProfile";
 
-export default function Sidebar({ userActions }) {
+export default function Sidebar({ userActions, ...props }) {
 	let activeClassName = "side-nav-active";
 
 	return (
@@ -26,7 +26,7 @@ export default function Sidebar({ userActions }) {
 				})}
 			</nav>
 			<div className="profile-info">
-				<UserProfile />
+				<UserProfile {...props} />
 			</div>
 		</div>
 	);
