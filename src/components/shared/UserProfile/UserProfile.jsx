@@ -5,8 +5,8 @@ export const UserProfile = () => {
 	const userInfo = {
 		imageURL:
 			"https://media.istockphoto.com/photos/english-bulldog-in-a-pumpkin-wagon-picture-id1280623255?b=1&k=20&m=1280623255&s=612x612&w=0&h=KzVaFbeq9HJdQZdGPXNd5xbfPUbKsjvhZdNC6Ii92pM=",
-		fullName: "Luis Ernecius",
-		accessLevel: "Administrador de sistema",
+		fullName: "Luis Martínez",
+		accessLevel: "Operador de Despacho",
 	};
 
 	return (
