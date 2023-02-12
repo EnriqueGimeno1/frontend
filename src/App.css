@@ -5,7 +5,7 @@
 	display: flex;
 	justify-content: center;
 	z-index: 10;
-	opacity: 20%;
+	opacity: 0%;
 }
 
 .app-menu:hover {
