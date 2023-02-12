@@ -47,15 +47,15 @@ export default function Login({ authenticatedUser, setAuthenticatedUser }) {
 								break;
 							case "Gerente de Sucursal":
 								console.log("Gerente de Sucursal");
-								navigate("/admin-panel");
+								navigate("/manager-panel");
 								break;
 							case "Operador de Transporte":
 								console.log("Operador de Transporte");
-								navigate("/admin-panel");
+								navigate("/operator-panel");
 								break;
 							case "Conductor":
 								console.log("Conductor");
-								navigate("/admin-panel");
+								navigate("/driver-panel");
 								break;
 							default:
 								break;
