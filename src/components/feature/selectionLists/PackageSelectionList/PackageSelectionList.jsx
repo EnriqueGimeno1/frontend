@@ -3,10 +3,11 @@ import "../SelectionList.css";
 
 export const PackageSelectionList = ({
 	selectedOrder,
-	selectedPackages,
-	setSelectedPackages,
+	setSelectedOrder,
+	ordersInfo,
+	setOrdersInfo,
 }) => {
-	console.log(selectedOrder);
+	// console.log(selectedOrder);
 	return (
 		<div className="selection-list-container">
 			<h1 className="title">Paquetes</h1>
@@ -18,8 +19,10 @@ export const PackageSelectionList = ({
 									key={index}
 									props={{
 										element: { ...element },
-										selectedPackages,
-										setSelectedPackages,
+										selectedOrder,
+										setSelectedOrder,
+										ordersInfo,
+										setOrdersInfo,
 									}}
 								/>
 							);

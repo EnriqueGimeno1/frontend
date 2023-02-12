@@ -2,12 +2,6 @@ import "./RouteAssignment.css";
 import { LoadBar } from "../LoadBar/LoadBar";
 import axios from "axios";
 import { useEffect, useState, useCallback } from "react";
-import driverThumbnail from "../../../assets/images/driver.png";
-import orderThumbnail from "../../../assets/images/order.png";
-import packageThumbnail from "../../../assets/images/package.png";
-import { DriverListElement } from "../listElements/DriverListElement/DriverListElement";
-import { OrderListElement } from "../listElements/OrderListElement/OrderListElement";
-import { PackageListElement } from "../listElements/PackageListElement/PackageListElement";
 import { DriverSelectionList } from "../selectionLists/DriverSelectionList/DriverSelectionList";
 import { OrderSelectionList } from "../selectionLists/OrderSelectionList/OrderSelectionList";
 import { PackageSelectionList } from "../selectionLists/PackageSelectionList/PackageSelectionList";
@@ -118,7 +112,12 @@ export const RouteAssignment = () => {
 	};
 
 	// Package properties to be sent to DriverSelectionList
-	const packageProps = { selectedOrder, selectedPackages, setSelectedPackages };
+	const packageProps = {
+		selectedOrder,
+		setSelectedOrder,
+		ordersInfo,
+		setOrdersInfo,
+	};
 
 	return (
 		<div className="assignment-container">
@@ -134,10 +133,13 @@ export const RouteAssignment = () => {
 				<div className="bottom-selection-container">
 					<div className="details-container">
 						<span className="selection-info">
-							{JSON.stringify(driversInfo)}
+							{/* {JSON.stringify(driversInfo)} */}
+							Cantidad de Destinos: 5
 						</span>
-						<span className="selection-info">Cantidad de Destinos</span>
-						<span className="selection-info">Hora de salida estimada</span>
+						<span className="selection-info">Cantidad de paquetes: 28</span>
+						<span className="selection-info">
+							Hora de salida estimada: 9:36a.m.
+						</span>
 					</div>
 					<div className="action-container">
 						<button

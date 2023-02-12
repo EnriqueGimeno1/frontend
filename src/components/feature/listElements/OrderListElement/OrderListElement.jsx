@@ -14,15 +14,43 @@ export const OrderListElement = ({
 }) => {
 	// Mark order as selected
 	const selectOrder = useCallback(() => {
+		let updatedTasks = [];
 		const updatedOrdersInfo = ordersInfo.map((order) => {
 			if (order.orderNumber === element.orderNumber) {
-				return { ...order, checked: true };
+				// console.log(order);
+				updatedTasks = order.tasks.map((task) => {
+					if (task.checked) return { ...task, checked: false };
+					else {
+						return { ...task, checked: true };
+					}
+				});
+				order.tasks = updatedTasks;
+				if (order.checked) {
+					// order.checked = false;
+					updatedTasks = order.tasks.map((task) => {
+						return { ...task, checked: false };
+					});
+
+					// Remove order from checked orders
+
+					return { ...order, checked: false };
+				} else {
+					// order.checked = true;
+					updatedTasks = order.tasks.map((task) => {
+						return { ...task, checked: true };
+					});
+
+					// Add order to checked orders
+
+					return { ...order, checked: true };
+				}
 			} else {
-				return { ...order, checked: false };
+				return { ...order };
 			}
 		});
+		console.log(updatedOrdersInfo);
 		setOrdersInfo(updatedOrdersInfo);
-		setSelectedOrder({ ...element });
+		setSelectedOrder({ ...element, tasks: updatedTasks });
 	}, [element, ordersInfo, setOrdersInfo, setSelectedOrder]);
 
 	return (
@@ -43,7 +71,7 @@ export const OrderListElement = ({
 				<span className="element-text">{element.clientName}</span>
 				<span className="element-text2">{element.numberOfPackages}</span>
 			</div>
-			<div className="check-box">Check</div>
+			{/* <div className="check-box">Check</div> */}
 		</div>
 	);
 };
