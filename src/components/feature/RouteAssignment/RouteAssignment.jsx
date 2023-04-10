@@ -29,6 +29,7 @@ export const RouteAssignment = () => {
   //   Information panel state
   const [deliveryDate, setDeliveryDate] = useState(new Date());
   const [packagesQuantity, setPackagesQuantity] = useState(0);
+  const [numberOfDestinations, setNumberOfDestinations] = useState(0);
 
   // Data to be sent to the server for assignment
   const [assignmentInfo, setAssignmentInfo] = useState("estado");
@@ -82,7 +83,7 @@ export const RouteAssignment = () => {
   }, [ordersInfo, selectedPackages]);
 
   //   Calculate number of selected packages
-  const sumSelectedPackagesQuantity = (selectedPackages) => {
+  const sumSelectedPackagesQuantity = useCallback((selectedPackages) => {
     let sum = 0;
     selectedPackages.forEach((order) => {
       order.tasks.forEach((task) => {
@@ -90,7 +91,16 @@ export const RouteAssignment = () => {
       });
     });
     return sum;
-  };
+  }, []);
+
+  //   Count unique receptions points form the selected packages
+  const countUniqueReceptionPoints = useCallback((selectedPackages) => {
+    const receptionPoints = selectedPackages.map(
+      (order) => order.receptionPointId
+    );
+    const uniqueReceptionPoints = new Set(receptionPoints);
+    return uniqueReceptionPoints.size;
+  }, []);
 
   // Uncheck and deselect elements on selection panels
   const clearSelection = useCallback(() => {
@@ -208,8 +218,13 @@ export const RouteAssignment = () => {
       setSelectedPackagesWeight(totalWeight);
       setSelectedPackagesVolume(totalVolume);
       setPackagesQuantity(sumSelectedPackagesQuantity(selectedPackages));
+      setNumberOfDestinations(countUniqueReceptionPoints(selectedPackages));
     }
-  }, [selectedPackages]);
+  }, [
+    selectedPackages,
+    countUniqueReceptionPoints,
+    sumSelectedPackagesQuantity,
+  ]);
 
   //   Update capacity bars width
   useEffect(() => {
@@ -310,7 +325,7 @@ export const RouteAssignment = () => {
           <div className="details-container">
             <span className="selection-info">
               {/* {JSON.stringify(driversInfo)} */}
-              Cantidad de Destinos: 5
+              Cantidad de Destinos: {numberOfDestinations}
             </span>
             <span className="selection-info">
               Cantidad de paquetes: {packagesQuantity}
