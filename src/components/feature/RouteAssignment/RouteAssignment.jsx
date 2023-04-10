@@ -353,7 +353,12 @@ export const RouteAssignment = () => {
             >
               Cancelar Selección
             </button>
-            <button className="button button2">Asignar</button>
+            <button
+              className="button button2"
+              disabled={!checkedDriver || selectedPackages.length < 1}
+            >
+              Asignar
+            </button>
           </div>
         </div>
       </div>
