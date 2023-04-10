@@ -3,79 +3,67 @@ import packageThumbnail from "../../../../assets/images/package.png";
 import { useCallback } from "react";
 
 export const PackageListElement = ({
-	props: {
-		element,
-		selectedOrder,
-		setSelectedOrder,
-		ordersInfo,
-		setOrdersInfo,
-	},
+  props: {
+    element,
+    selectedOrder,
+    setSelectedOrder,
+    ordersInfo,
+    setOrdersInfo,
+  },
 }) => {
-	console.log(selectedOrder);
-	const selectPackage = useCallback(() => {
-		let updatedTasks = [];
-		const updatedOrdersInfo = ordersInfo.map((order) => {
-			if (order.orderNumber === selectedOrder.orderNumber) {
-				// console.log(order);
-				updatedTasks = order.tasks.map((task) => {
-					if (task.productID === element.productID) {
-						if (task.checked) return { ...task, checked: false };
-						else {
-							return { ...task, checked: true };
-						}
-					} else {
-						return { ...task };
-					}
-				});
-				order.tasks = updatedTasks;
-				if (order.checked) {
-					// order.checked = false;
-					updatedTasks = order.tasks.map((task) => {
-						return { ...task, checked: false };
-					});
+  //   console.log(selectedOrder);
+  const backgroundColor = element.checked ? "lightgreen" : "white";
 
-					// Remove order from checked orders
+  const updateProductChecked = useCallback(
+    (_id) => {
+      let updatedTasks = {};
+      const updatedOrdersInfo = ordersInfo.map((order) => {
+        // console.log(order.orderNumber);
+        // console.log(selectedOrder.orderNumber);
+        // console.log(ordersInfo);
 
-					return { ...order, checked: false };
-				} else {
-					// order.checked = true;
-					updatedTasks = order.tasks.map((task) => {
-						return { ...task, checked: true };
-					});
+        if (order.orderNumber === selectedOrder.orderNumber) {
+          updatedTasks = order.tasks.map((task) => {
+            if (task._id === _id) {
+              return { ...task, checked: !task.checked };
+            }
+            return task;
+          });
 
-					// Add order to checked orders
+          //   setOrdersInfo({...ordersInfo, tasks: updatedTasks})
+        }
+        return { ...order, tasks: updatedTasks };
+      });
+      console.log("updatedOrdersInfo", updatedOrdersInfo);
+      setOrdersInfo(updatedOrdersInfo);
+      setSelectedOrder({ ...selectedOrder, tasks: updatedTasks });
+    },
+    [ordersInfo, selectedOrder, setOrdersInfo, setSelectedOrder]
+  );
 
-					return { ...order, checked: true };
-				}
-			} else {
-				return { ...order };
-			}
-		});
-		console.log(updatedOrdersInfo);
-		setOrdersInfo(updatedOrdersInfo);
-		setSelectedOrder({ ...selectedOrder, tasks: updatedTasks });
-	}, [ordersInfo, setOrdersInfo, setSelectedOrder, selectedOrder, element]);
-
-	return (
-		<div
-			className={[
-				"list-element-container",
-				selectedOrder && selectedOrder.checked ? "selected-list-element" : "",
-			]
-				.join(" ")
-				.trim()}
-			onClick={selectPackage}
-		>
-			<div className="picture-container">
-				<img className="picture" src={packageThumbnail} alt="Miniatura" />
-			</div>
-			<div className="info-container">
-				<span className="element-title">{element.productName}</span>
-				<span className="element-text">Cantidad: 4{element.quantity}</span>
-				{/* <span className="element-text2">
+  return (
+    <div
+      className={[
+        "list-element-container",
+        selectedOrder && selectedOrder.checked ? "selected-list-element" : "",
+      ]
+        .join(" ")
+        .trim()}
+      style={{ backgroundColor }}
+      // onClick={selectPackage}
+      onClick={() => updateProductChecked(element._id)}
+    >
+      <div className="picture-container">
+        <img className="picture" src={packageThumbnail} alt="Miniatura" />
+      </div>
+      <div className="info-container">
+        <span className="element-title">{element.productName}</span>
+        <span className="element-text">Cantidad: 4{element.quantity}</span>
+        <span className="element-text">Peso Total: {element.weight} Kg</span>
+        {/* <span className="element-text2">
 					Peso: {element.weight} Volumen: {element.volume}
 				</span> */}
-			</div>
-		</div>
-	);
+      </div>
+    </div>
+  );
 };

@@ -7,157 +7,288 @@ import { OrderSelectionList } from "../selectionLists/OrderSelectionList/OrderSe
 import { PackageSelectionList } from "../selectionLists/PackageSelectionList/PackageSelectionList";
 
 export const RouteAssignment = () => {
-	// Driver data from the server
-	const [driversInfo, setDriversInfo] = useState([]);
-	// Order data from the server
-	const [ordersInfo, setOrdersInfo] = useState([]);
-	// CURRENTLY SELECTED ORDER (Not necessarily checked)
-	const [selectedOrder, setSelectedOrder] = useState();
+  // Driver data from the server
+  const [driversInfo, setDriversInfo] = useState([]);
+  // Order data from the server
+  const [ordersInfo, setOrdersInfo] = useState([]);
+  // CURRENTLY SELECTED ORDER (Not necessarily checked)
+  const [selectedOrder, setSelectedOrder] = useState();
 
-	// ASSIGNATION STATE
-	// Checked Driver
-	const [checkedDriver, setCheckedDriver] = useState();
-	// Checked Order
-	const [checkedOrders, setCheckedOrders] = useState();
-	// Checked Packages
-	const [selectedPackages, setSelectedPackages] = useState();
+  // ASSIGNATION STATE
+  // Checked Driver
+  const [checkedDriver, setCheckedDriver] = useState();
+  // Checked Order
+  const [checkedOrders, setCheckedOrders] = useState();
+  // Checked Packages
+  const [selectedPackages, setSelectedPackages] = useState([]);
+  // Capacity values
+  const [selectedPackagesVolume, setSelectedPackagesVolume] = useState(0);
+  const [selectedPackagesWeight, setSelectedPackagesWeight] = useState(0);
+  const [weightBarWidth, setWeightBarWidth] = useState(0);
+  const [volumeBarWidth, setVolumeBarWidth] = useState(0);
+  // Data to be sent to the server for assignment
+  const [assignmentInfo, setAssignmentInfo] = useState("estado");
 
-	// Data to be sent to the server for assignment
-	const [assignmentInfo, setAssignmentInfo] = useState("estado");
+  // Initialize or disable drivers checked state
+  const uncheckDriversInfo = useCallback((driversInformation) => {
+    let transformedDriversInfo = driversInformation.map((driver) => ({
+      ...driver,
+      checked: false,
+    }));
+    setDriversInfo(transformedDriversInfo);
+  }, []);
 
-	// Initialize or disable drivers checked state
-	const uncheckDriversInfo = useCallback((driversInformation) => {
-		let transformedDriversInfo = driversInformation.map((driver) => ({
-			...driver,
-			checked: false,
-		}));
-		setDriversInfo(transformedDriversInfo);
-	}, []);
+  // Initialize or disable drivers checked state
+  const uncheckOrdersInfo = useCallback(() => {
+    // let transformedOrdersInfo = ordersInformation.map((order) => ({
+    //   ...order,
+    //   currentlySelected: false,
+    //   checked: false, //Possible values: false, partially,completely
+    //   numberOfPackages: order.tasks.length,
+    // }));
+    // // Add 'selected' property to every driver object
+    // setOrdersInfo(transformedOrdersInfo);
+    console.log(selectedPackages);
+    let transformedOrdersInfo = ordersInfo.map((order) => ({
+      ...order,
+      tasks: order.tasks.map((task) =>
+        selectedPackages.some((selectedPackage) =>
+          selectedPackage.tasks.some(
+            (selectedTask) => selectedTask._id === task._id
+          )
+        )
+          ? { ...task, checked: false }
+          : task
+      ),
+    }));
+    setOrdersInfo(transformedOrdersInfo);
+    // setOrdersInfo((prevOrdersInfo) =>
+    //   prevOrdersInfo.map((order) => ({
+    //     ...order,
+    //     tasks: order.tasks.map((task) =>
+    //       selectedPackages.some(
+    //         (selectedPackage) => selectedPackage._id === task._id
+    //       )
+    //         ? { ...task, checked: false }
+    //         : task
+    //     ),
+    //   }))
+    // );
+    setSelectedPackages([]);
+  }, [ordersInfo, selectedPackages]);
 
-	// Initialize or disable drivers checked state
-	const uncheckOrdersInfo = useCallback((ordersInformation) => {
-		let transformedOrdersInfo = ordersInformation.map((order) => ({
-			...order,
-			currentlySelected: false,
-			checked: false, //Possible values: false, partially,completely
-			numberOfPackages: order.tasks.length,
-		}));
-		// Add 'selected' property to every driver object
-		setOrdersInfo(transformedOrdersInfo);
-	}, []);
+  // Uncheck and deselect elements on selection panels
+  const clearSelection = useCallback(() => {
+    setSelectedOrder();
+    setCheckedDriver();
+    setCheckedOrders([]);
+    uncheckDriversInfo(driversInfo);
+    uncheckOrdersInfo();
+  }, [driversInfo, uncheckDriversInfo, uncheckOrdersInfo]);
 
-	// Uncheck and deselect elements on selection panels
-	const clearSelection = useCallback(() => {
-		setSelectedOrder();
-		setCheckedDriver();
-		setCheckedOrders();
-		setSelectedPackages();
-		uncheckDriversInfo(driversInfo);
-		uncheckOrdersInfo(ordersInfo);
-	}, [driversInfo, ordersInfo, uncheckDriversInfo, uncheckOrdersInfo]);
+  //Get server information when component mounts
+  useEffect(() => {
+    // Get driver data from server
+    axios({
+      method: "get",
+      url: "http://localhost:3333/users",
+      responseType: "json",
+    }).then(function (response) {
+      // console.log(response.data);
 
-	//Get server information when component mounts
-	useEffect(() => {
-		// Get driver data from server
-		axios({
-			method: "get",
-			url: "http://localhost:3333/users/drivers",
-			responseType: "json",
-		}).then(function (response) {
-			// console.log(response.data);
+      // Add 'selected' property to every driver object
+      //   let transformedDriversInfo = response.data.map((driver) => ({
+      //     ...driver,
+      //     checked: false,
+      //   }));
+      let transformedDriversInfo = response.data
+        .filter((user) => user.accessLevel === "Conductor")
+        .map((user) => ({ ...user, checked: false }));
+      setDriversInfo(transformedDriversInfo);
+    });
 
-			// Add 'selected' property to every driver object
-			let transformedDriversInfo = response.data.map((driver) => ({
-				...driver,
-				checked: false,
-			}));
-			setDriversInfo(transformedDriversInfo);
-		});
+    // Get Orders data from server
+    axios({
+      method: "get",
+      url: "http://localhost:3333/orders",
+      responseType: "json",
+    }).then(function (response) {
+      // console.log(response.data);
 
-		// Get Orders data from server
-		axios({
-			method: "get",
-			url: "http://localhost:3333/orders",
-			responseType: "json",
-		}).then(function (response) {
-			// console.log(response.data);
+      let transformedOrdersInfo = response.data.map(
+        (order) => {
+          order.currentlySelected = false;
+          order.numberOfPackages = order.tasks.length;
+          order.tasks = order.tasks.map((task) => {
+            task.checked = false;
+            return task;
+          });
+          return order;
+        }
+        // ({
+        // 	...order,
+        // 	currentlySelected: false,
+        // 	checked: false, //Possible values: false, partially,completely
+        // 	numberOfPackages: order.tasks.length,
+        // })
+      );
 
-			let transformedOrdersInfo = response.data.map((order) => ({
-				...order,
-				currentlySelected: false,
-				checked: false, //Possible values: false, partially,completely
-				numberOfPackages: order.tasks.length,
-			}));
-			// Add 'selected' property to every driver object
-			setOrdersInfo(transformedOrdersInfo);
-		});
-	}, []);
+      console.log("ordersInfo: ", transformedOrdersInfo);
+      // Add 'selected' property to every driver object
+      setOrdersInfo(transformedOrdersInfo);
+    });
+  }, []);
 
-	// CHILDREN PROPS
+  //   Update selectedPackags array
+  const updateSelectedPackages = useCallback(() => {
+    if (selectedOrder) {
+      setSelectedPackages((selectedPackages) => {
+        const updatedSelectedPackages = [...selectedPackages];
+        const checkedTasks = selectedOrder.tasks.filter((task) => task.checked);
+        if (checkedTasks.length > 0) {
+          const selectedOrderIndex = updatedSelectedPackages.findIndex(
+            (order) => order._id === selectedOrder._id
+          );
+          if (selectedOrderIndex !== -1) {
+            updatedSelectedPackages[selectedOrderIndex].tasks = checkedTasks;
+          } else {
+            updatedSelectedPackages.push({
+              ...selectedOrder,
+              tasks: checkedTasks,
+            });
+          }
+        } else {
+          const selectedOrderIndex = updatedSelectedPackages.findIndex(
+            (order) => order._id === selectedOrder._id
+          );
+          if (selectedOrderIndex !== -1) {
+            updatedSelectedPackages.splice(selectedOrderIndex, 1);
+          }
+        }
+        return updatedSelectedPackages;
+      });
+    }
+  }, [selectedOrder]);
 
-	// Drivers properties to be sent to DriverSelectionList
-	const driversProps = {
-		driversInfo,
-		setDriversInfo,
-		checkedDriver,
-		setCheckedDriver,
-	};
+  //   Automatically updating selectedPackages
+  useEffect(() => {
+    updateSelectedPackages();
+  }, [selectedOrder, updateSelectedPackages]);
 
-	// orders properties to be sent to DriverSelectionList
-	const ordersProps = {
-		ordersInfo,
-		setOrdersInfo,
-		selectedOrder,
-		setSelectedOrder,
-	};
+  useEffect(() => {
+    console.log("weight", selectedPackagesWeight);
+  }, [selectedPackagesWeight]);
 
-	// Package properties to be sent to DriverSelectionList
-	const packageProps = {
-		selectedOrder,
-		setSelectedOrder,
-		ordersInfo,
-		setOrdersInfo,
-	};
+  //   Automatically update selected packages weight and volume
+  useEffect(() => {
+    if (selectedPackages) {
+      let totalWeight = 0;
+      let totalVolume = 0;
+      selectedPackages.forEach((order) => {
+        order.tasks.forEach((task) => {
+          totalWeight += task.weight;
+          totalVolume += task.volume;
+        });
+      });
+      setSelectedPackagesWeight(totalWeight);
+      setSelectedPackagesVolume(totalVolume);
+    }
+  }, [selectedPackages]);
 
-	return (
-		<div className="assignment-container">
-			<div className="selection-panel-container">
-				<DriverSelectionList {...driversProps} />
-				<OrderSelectionList {...ordersProps} />
-				<PackageSelectionList {...packageProps} />
-			</div>
-			<div className="load-bar-section">
-				<LoadBar />
-			</div>
-			<div className="bottom-section">
-				<div className="bottom-selection-container">
-					<div className="details-container">
-						<span className="selection-info">
-							{/* {JSON.stringify(driversInfo)} */}
-							Cantidad de Destinos: 5
-						</span>
-						<span className="selection-info">Cantidad de paquetes: 28</span>
-						<span className="selection-info">
-							Hora de salida estimada: 9:36a.m.
-						</span>
-					</div>
-					<div className="action-container">
-						<button
-							className="button button1"
-							onClick={clearSelection}
-							disabled={
-								!selectedOrder &&
-								!checkedDriver &&
-								!checkedOrders &&
-								!selectedPackages
-							}
-						>
-							Desmarcar
-						</button>
-						<button className="button button2">Asignar</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+  //   Update capacity bars width
+  useEffect(() => {
+    if (checkedDriver) {
+      let weightPercentage = 0;
+      let volumePercentage = 0;
+      if (selectedPackagesWeight && selectedPackagesVolume) {
+        weightPercentage =
+          (selectedPackagesWeight / checkedDriver.vehicleWeight) * 100;
+        volumePercentage =
+          (selectedPackagesWeight / checkedDriver.vehicleWeight) * 100;
+      }
+      setWeightBarWidth(weightPercentage);
+      setVolumeBarWidth(volumePercentage);
+    }
+  }, [checkedDriver, selectedPackagesVolume, selectedPackagesWeight]);
+
+  // CHILDREN PROPS
+
+  // Drivers properties to be sent to DriverSelectionList
+  const driversProps = {
+    driversInfo,
+    setDriversInfo,
+    checkedDriver,
+    setCheckedDriver,
+  };
+
+  // orders properties to be sent to OrderSelectionList
+  const ordersProps = {
+    ordersInfo,
+    setOrdersInfo,
+    selectedOrder,
+    setSelectedOrder,
+    selectedPackagesVolume,
+    setSelectedPackagesVolume,
+    selectedPackagesWeight,
+    setSelectedPackagesWeight,
+  };
+
+  // Package properties to be sent to PackageSelectionList
+  const packageProps = {
+    selectedOrder,
+    setSelectedOrder,
+    ordersInfo,
+    setOrdersInfo,
+    selectedPackagesVolume,
+    setSelectedPackagesVolume,
+    selectedPackagesWeight,
+    setSelectedPackagesWeight,
+  };
+
+  //   Capacity props
+  const capacityProps = {
+    weightBarWidth,
+    volumeBarWidth,
+  };
+
+  return (
+    <div className="assignment-container">
+      <div className="selection-panel-container">
+        <DriverSelectionList {...driversProps} />
+        <OrderSelectionList {...ordersProps} />
+        <PackageSelectionList {...packageProps} />
+      </div>
+      <div className="load-bar-section">
+        <LoadBar {...capacityProps} />
+      </div>
+      <div className="bottom-section">
+        <div className="bottom-selection-container">
+          <div className="details-container">
+            <span className="selection-info">
+              {/* {JSON.stringify(driversInfo)} */}
+              Cantidad de Destinos: 5
+            </span>
+            <span className="selection-info">Cantidad de paquetes: 28</span>
+            <span className="selection-info">
+              Hora de salida estimada: 9:36a.m.
+            </span>
+          </div>
+          <div className="action-container">
+            <button
+              className="button button1"
+              onClick={clearSelection}
+              disabled={
+                !checkedDriver &&
+                checkedOrders.length === 0 &&
+                selectedPackages.length === 0
+              }
+            >
+              Cancelar Selección
+            </button>
+            <button className="button button2">Asignar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
