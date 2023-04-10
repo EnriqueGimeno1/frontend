@@ -18,7 +18,7 @@ export const RouteAssignment = () => {
   // Checked Driver
   const [checkedDriver, setCheckedDriver] = useState();
   // Checked Order
-  const [checkedOrders, setCheckedOrders] = useState();
+  const [checkedOrders, setCheckedOrders] = useState([]);
   // Checked Packages
   const [selectedPackages, setSelectedPackages] = useState([]);
   // Capacity values
@@ -26,6 +26,10 @@ export const RouteAssignment = () => {
   const [selectedPackagesWeight, setSelectedPackagesWeight] = useState(0);
   const [weightBarWidth, setWeightBarWidth] = useState(0);
   const [volumeBarWidth, setVolumeBarWidth] = useState(0);
+  //   Information panel state
+  const [deliveryDate, setDeliveryDate] = useState(new Date());
+  const [packagesQuantity, setPackagesQuantity] = useState(0);
+
   // Data to be sent to the server for assignment
   const [assignmentInfo, setAssignmentInfo] = useState("estado");
 
@@ -76,6 +80,17 @@ export const RouteAssignment = () => {
     // );
     setSelectedPackages([]);
   }, [ordersInfo, selectedPackages]);
+
+  //   Calculate number of selected packages
+  const sumSelectedPackagesQuantity = (selectedPackages) => {
+    let sum = 0;
+    selectedPackages.forEach((order) => {
+      order.tasks.forEach((task) => {
+        sum += task.quantity;
+      });
+    });
+    return sum;
+  };
 
   // Uncheck and deselect elements on selection panels
   const clearSelection = useCallback(() => {
@@ -192,6 +207,7 @@ export const RouteAssignment = () => {
       });
       setSelectedPackagesWeight(totalWeight);
       setSelectedPackagesVolume(totalVolume);
+      setPackagesQuantity(sumSelectedPackagesQuantity(selectedPackages));
     }
   }, [selectedPackages]);
 
@@ -211,8 +227,36 @@ export const RouteAssignment = () => {
     }
   }, [checkedDriver, selectedPackagesVolume, selectedPackagesWeight]);
 
-  // CHILDREN PROPS
+  // Update estimated delivery date whenever packagesQuanity changes and every minute after that
+  useEffect(() => {
+    const currentTime = new Date();
+    const minTimeInFuture = new Date(
+      currentTime.setMinutes(currentTime.getMinutes() + 10)
+    );
+    const timeInFuture = new Date(
+      currentTime.setSeconds(currentTime.getSeconds() + packagesQuantity * 10)
+    );
+    setDeliveryDate(
+      timeInFuture > minTimeInFuture ? timeInFuture : minTimeInFuture
+    );
 
+    const intervalId = setInterval(() => {
+      const currentTime = new Date();
+      const minTimeInFuture = new Date(
+        currentTime.setMinutes(currentTime.getMinutes() + 10)
+      );
+      const timeInFuture = new Date(
+        currentTime.setSeconds(currentTime.getSeconds() + packagesQuantity * 10)
+      );
+      setDeliveryDate(
+        timeInFuture > minTimeInFuture ? timeInFuture : minTimeInFuture
+      );
+    }, 60 * 1000); // update every minute
+
+    return () => clearInterval(intervalId);
+  }, [packagesQuantity]);
+
+  // CHILDREN PROPS
   // Drivers properties to be sent to DriverSelectionList
   const driversProps = {
     driversInfo,
@@ -268,9 +312,17 @@ export const RouteAssignment = () => {
               {/* {JSON.stringify(driversInfo)} */}
               Cantidad de Destinos: 5
             </span>
-            <span className="selection-info">Cantidad de paquetes: 28</span>
             <span className="selection-info">
-              Hora de salida estimada: 9:36a.m.
+              Cantidad de paquetes: {packagesQuantity}
+            </span>
+            {/* Estimated delivery date */}
+            <span className="selection-info">
+              Hora de salida estimada:{" "}
+              {deliveryDate.toLocaleTimeString("en-US", {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true,
+              })}
             </span>
           </div>
           <div className="action-container">
