@@ -32,7 +32,7 @@ export const RouteAssignment = () => {
   const [numberOfDestinations, setNumberOfDestinations] = useState(0);
 
   // Data to be sent to the server for assignment
-  const [assignmentInfo, setAssignmentInfo] = useState("estado");
+  const [assignmentInfo, setAssignmentInfo] = useState([]);
 
   // Initialize or disable drivers checked state
   const uncheckDriversInfo = useCallback((driversInformation) => {
@@ -228,18 +228,19 @@ export const RouteAssignment = () => {
 
   //   Update capacity bars width
   useEffect(() => {
+    let weightPercentage = 0;
+    let volumePercentage = 0;
     if (checkedDriver) {
-      let weightPercentage = 0;
-      let volumePercentage = 0;
       if (selectedPackagesWeight && selectedPackagesVolume) {
         weightPercentage =
           (selectedPackagesWeight / checkedDriver.vehicleWeight) * 100;
         volumePercentage =
           (selectedPackagesWeight / checkedDriver.vehicleWeight) * 100;
       }
-      setWeightBarWidth(weightPercentage);
-      setVolumeBarWidth(volumePercentage);
     }
+
+    setWeightBarWidth(weightPercentage);
+    setVolumeBarWidth(volumePercentage);
   }, [checkedDriver, selectedPackagesVolume, selectedPackagesWeight]);
 
   // Update estimated delivery date whenever packagesQuanity changes and every minute after that
