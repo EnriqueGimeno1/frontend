@@ -12,7 +12,9 @@ export const PackageListElement = ({
   },
 }) => {
   //   console.log(selectedOrder);
-  const backgroundColor = element.checked ? "lightgreen" : "white";
+  const backgroundColor = element.checked
+    ? "hsl(157, 90%, 28%)"
+    : "hsl(188, 100%, 15%)";
 
   const updateProductChecked = useCallback(
     (_id) => {

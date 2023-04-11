@@ -17,11 +17,11 @@ export const OrderListElement = ({
   let backgroundColor;
 
   if (allChecked) {
-    backgroundColor = "green";
+    backgroundColor = "hsl(157, 90%, 28%)";
   } else if (someChecked) {
-    backgroundColor = "yellow";
+    backgroundColor = "hsl(180, 50%, 32%)";
   } else {
-    backgroundColor = "red";
+    backgroundColor = "hsl(188, 100%, 15%)";
   }
 
   // Mark order as selected
