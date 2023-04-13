@@ -35,10 +35,18 @@ export const RouteAssignment = () => {
   const [vehicleSpeed, setVehicleSpeed] = useState(50);
   // Source Storage location
   const [sourceCoordinates, setSourceCoordinates] = useState({
-    receptionPointID: "l10",
+    receptionPointId: "Alamacen01",
     latitude: "55.7558",
     longitude: "37.6173",
   });
+  const [sourceStorageData, setSourceStorageData] = useState({
+    receptionPointId: "Alamacen01",
+    address: "Av. Bolivar, Lecheria, Anzoátegui",
+    latitude: "55.7558",
+    longitude: "37.6173",
+    tasks: [],
+  });
+
   // Data to be sent to the server for assignment
   const [assignmentInfo, setAssignmentInfo] = useState([]);
 
@@ -222,9 +230,9 @@ export const RouteAssignment = () => {
     //   { receptionPointID: "l10", latitude: "55.7558", longitude: "37.6173" },
     // ];
     const coordinates = selectedPackages.reduce((acc, curr) => {
-      // if (acc.length === 0) {
-      //   acc.push(sourceCoordinates);
-      // }
+      if (acc.length === 0) {
+        acc.push(sourceCoordinates);
+      }
       console.log(curr);
       if (
         !acc.some((item) => item.receptionPointId === curr.receptionPointId)
@@ -240,17 +248,19 @@ export const RouteAssignment = () => {
     const response = await requestRouteOptimization(coordinates);
     console.log(response);
     setOptimizedRoute(response.data);
-  }, [selectedPackages]);
+  }, [selectedPackages, sourceCoordinates]);
 
   // Generate elements for the optimized route
   const generateOptimizedRouteInfo = useCallback(() => {
     let result = [];
     console.log("selectedPackages", selectedPackages);
     console.log("optimizedRoute", optimizedRoute);
+    let selectedPackagesCopy = [...selectedPackages];
+    selectedPackagesCopy.unshift(sourceStorageData);
     optimizedRoute.forEach((route) => {
       let originPointId = route.startingReceptionPointId;
       let destinationPointId = route.endingReceptionPointId;
-      let destinationAddress = selectedPackages.find(
+      let destinationAddress = selectedPackagesCopy.find(
         (order) => order.receptionPointId === destinationPointId
       ).address;
       let travelTimeInMinutes =
@@ -265,7 +275,7 @@ export const RouteAssignment = () => {
           minutes === 1 ? "minuto" : "minutos"
         }`;
       }
-      let packagesAtDestination = selectedPackages.filter(
+      let packagesAtDestination = selectedPackagesCopy.filter(
         (order) => order.receptionPointId === destinationPointId
       );
       let totalNumberOfPackages = packagesAtDestination.reduce(
@@ -289,7 +299,7 @@ export const RouteAssignment = () => {
     });
     console.log("Optimized ruote info: ", result);
     return result;
-  }, [selectedPackages, optimizedRoute, vehicleSpeed]);
+  }, [selectedPackages, optimizedRoute, sourceStorageData, vehicleSpeed]);
 
   useEffect(() => {
     if (optimizedRoute.length > 0) {
