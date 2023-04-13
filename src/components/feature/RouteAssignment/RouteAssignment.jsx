@@ -382,7 +382,7 @@ export const RouteAssignment = () => {
               disabled={!checkedDriver || selectedPackages.length < 1}
               onClick={handleRouteOptimizationRequest}
             >
-              Asignar
+              Generar Ruta
             </button>
           </div>
         </div>
