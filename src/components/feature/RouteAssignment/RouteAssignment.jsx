@@ -195,6 +195,27 @@ export const RouteAssignment = () => {
     }
   }, [selectedOrder]);
 
+  function requestRouteOptimization(coordinates) {
+    return axios.post("http://localhost:3333/distance", { coordinates });
+  }
+
+  const handleRouteOptimizationRequest = useCallback(async () => {
+    const coordinates = [
+      { receptionPointID: "l1", latitude: "51.5074", longitude: "-0.1278" },
+      { receptionPointID: "l2", latitude: "-33.8688", longitude: "151.2093" },
+      { receptionPointID: "l3", latitude: "35.6895", longitude: "139.6917" },
+      { receptionPointID: "l4", latitude: "40.7128", longitude: "-74.0060" },
+      { receptionPointID: "l5", latitude: "48.8566", longitude: "2.3522" },
+      { receptionPointID: "l6", latitude: "-22.9068", longitude: "-43.1729" },
+      { receptionPointID: "l7", latitude: "52.5200", longitude: "13.4050" },
+      { receptionPointID: "l8", latitude: "37.7749", longitude: "-122.4194" },
+      { receptionPointID: "l9", latitude: "-26.2041", longitude: "28.0473" },
+      { receptionPointID: "l10", latitude: "55.7558", longitude: "37.6173" },
+    ];
+    const response = await requestRouteOptimization(coordinates);
+    console.log(response);
+  }, []);
+
   //   Automatically updating selectedPackages
   useEffect(() => {
     updateSelectedPackages();
@@ -359,6 +380,7 @@ export const RouteAssignment = () => {
             <button
               className="button button2"
               disabled={!checkedDriver || selectedPackages.length < 1}
+              onClick={handleRouteOptimizationRequest}
             >
               Asignar
             </button>
