@@ -221,9 +221,9 @@ export const RouteAssignment = () => {
   //   updateSelectedPackages();
   // }, [selectedOrder, updateSelectedPackages]);
 
-  useEffect(() => {
-    console.log("weight", selectedPackagesWeight);
-  }, [selectedPackagesWeight]);
+  // useEffect(() => {
+  //   console.log("weight", selectedPackagesWeight);
+  // }, [selectedPackagesWeight]);
 
   //   Automatically update selected packages weight and volume
   useEffect(() => {
