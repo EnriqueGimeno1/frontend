@@ -30,7 +30,15 @@ export const RouteAssignment = () => {
   const [deliveryDate, setDeliveryDate] = useState(new Date());
   const [packagesQuantity, setPackagesQuantity] = useState(0);
   const [numberOfDestinations, setNumberOfDestinations] = useState(0);
-
+  // Generated Route state
+  const [optimizedRoute, setOptimizedRoute] = useState([]);
+  const [vehicleSpeed, setVehicleSpeed] = useState(50);
+  // Source Storage location
+  const [sourceCoordinates, setSourceCoordinates] = useState({
+    receptionPointID: "l10",
+    latitude: "55.7558",
+    longitude: "37.6173",
+  });
   // Data to be sent to the server for assignment
   const [assignmentInfo, setAssignmentInfo] = useState([]);
 
@@ -190,6 +198,7 @@ export const RouteAssignment = () => {
             updatedSelectedPackages.splice(selectedOrderIndex, 1);
           }
         }
+        console.log("updatedSelectedPackages ", updatedSelectedPackages);
         return updatedSelectedPackages;
       });
     }
@@ -200,30 +209,99 @@ export const RouteAssignment = () => {
   }
 
   const handleRouteOptimizationRequest = useCallback(async () => {
-    const coordinates = [
-      { receptionPointID: "l1", latitude: "51.5074", longitude: "-0.1278" },
-      { receptionPointID: "l2", latitude: "-33.8688", longitude: "151.2093" },
-      { receptionPointID: "l3", latitude: "35.6895", longitude: "139.6917" },
-      { receptionPointID: "l4", latitude: "40.7128", longitude: "-74.0060" },
-      { receptionPointID: "l5", latitude: "48.8566", longitude: "2.3522" },
-      { receptionPointID: "l6", latitude: "-22.9068", longitude: "-43.1729" },
-      { receptionPointID: "l7", latitude: "52.5200", longitude: "13.4050" },
-      { receptionPointID: "l8", latitude: "37.7749", longitude: "-122.4194" },
-      { receptionPointID: "l9", latitude: "-26.2041", longitude: "28.0473" },
-      { receptionPointID: "l10", latitude: "55.7558", longitude: "37.6173" },
-    ];
+    // const coordinates = [
+    //   { receptionPointID: "l1", latitude: "51.5074", longitude: "-0.1278" },
+    //   { receptionPointID: "l2", latitude: "-33.8688", longitude: "151.2093" },
+    //   { receptionPointID: "l3", latitude: "35.6895", longitude: "139.6917" },
+    //   { receptionPointID: "l4", latitude: "40.7128", longitude: "-74.0060" },
+    //   { receptionPointID: "l5", latitude: "48.8566", longitude: "2.3522" },
+    //   { receptionPointID: "l6", latitude: "-22.9068", longitude: "-43.1729" },
+    //   { receptionPointID: "l7", latitude: "52.5200", longitude: "13.4050" },
+    //   { receptionPointID: "l8", latitude: "37.7749", longitude: "-122.4194" },
+    //   { receptionPointID: "l9", latitude: "-26.2041", longitude: "28.0473" },
+    //   { receptionPointID: "l10", latitude: "55.7558", longitude: "37.6173" },
+    // ];
+    const coordinates = selectedPackages.reduce((acc, curr) => {
+      // if (acc.length === 0) {
+      //   acc.push(sourceCoordinates);
+      // }
+      console.log(curr);
+      if (
+        !acc.some((item) => item.receptionPointId === curr.receptionPointId)
+      ) {
+        acc.push({
+          receptionPointId: curr.receptionPointId,
+          latitude: curr.latitude,
+          longitude: curr.longitude,
+        });
+      }
+      return acc;
+    }, []);
     const response = await requestRouteOptimization(coordinates);
     console.log(response);
-  }, []);
+    setOptimizedRoute(response.data);
+  }, [selectedPackages]);
+
+  // Generate elements for the optimized route
+  const generateOptimizedRouteInfo = useCallback(() => {
+    let result = [];
+    console.log("selectedPackages", selectedPackages);
+    console.log("optimizedRoute", optimizedRoute);
+    optimizedRoute.forEach((route) => {
+      let originPointId = route.startingReceptionPointId;
+      let destinationPointId = route.endingReceptionPointId;
+      let destinationAddress = selectedPackages.find(
+        (order) => order.receptionPointId === destinationPointId
+      ).address;
+      let travelTimeInMinutes =
+        route.distanceBetweenPoints / 1000 / (vehicleSpeed / 60);
+      let travelTime = "";
+      if (travelTimeInMinutes < 60) {
+        travelTime = `${Math.round(travelTimeInMinutes)} minutos`;
+      } else {
+        let hours = Math.floor(travelTimeInMinutes / 60);
+        let minutes = Math.round(travelTimeInMinutes % 60);
+        travelTime = `${hours} ${hours === 1 ? "hora" : "horas"} ${minutes} ${
+          minutes === 1 ? "minuto" : "minutos"
+        }`;
+      }
+      let packagesAtDestination = selectedPackages.filter(
+        (order) => order.receptionPointId === destinationPointId
+      );
+      let totalNumberOfPackages = packagesAtDestination.reduce(
+        (acc, curr) =>
+          acc + curr.tasks.reduce((acc, curr) => acc + curr.quantity, 0),
+        0
+      );
+      let tasks = packagesAtDestination.map((order) => order.tasks).flat();
+      let ordersNumbers = packagesAtDestination.map(
+        (order) => order.orderNumber
+      );
+      result.push({
+        originPointId: originPointId,
+        destinationPointId: destinationPointId,
+        destinationAddress,
+        travelTime,
+        totalNumberOfPackages,
+        tasks,
+        ordersNumbers,
+      });
+    });
+    console.log("Optimized ruote info: ", result);
+    return result;
+  }, [selectedPackages, optimizedRoute, vehicleSpeed]);
+
+  useEffect(() => {
+    if (optimizedRoute.length > 0) {
+      // console.log("optimizedRoute", optimizedRoute);
+      generateOptimizedRouteInfo();
+    }
+  }, [generateOptimizedRouteInfo, optimizedRoute]);
 
   //   Automatically updating selectedPackages
-  // useEffect(() => {
-  //   updateSelectedPackages();
-  // }, [selectedOrder, updateSelectedPackages]);
-
-  // useEffect(() => {
-  //   console.log("weight", selectedPackagesWeight);
-  // }, [selectedPackagesWeight]);
+  useEffect(() => {
+    updateSelectedPackages();
+  }, [selectedOrder, updateSelectedPackages]);
 
   //   Automatically update selected packages weight and volume
   useEffect(() => {
