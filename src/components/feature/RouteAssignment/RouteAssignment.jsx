@@ -232,8 +232,8 @@ export const RouteAssignment = () => {
       let totalVolume = 0;
       selectedPackages.forEach((order) => {
         order.tasks.forEach((task) => {
-          totalWeight += task.weight;
-          totalVolume += task.volume;
+          totalWeight += task.weight * task.quantity;
+          totalVolume += task.volume * task.quantity;
         });
       });
       setSelectedPackagesWeight(totalWeight);

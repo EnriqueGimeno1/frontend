@@ -61,7 +61,9 @@ export const PackageListElement = ({
       <div className="info-container">
         <span className="element-title">{element.productName}</span>
         <span className="element-text">Cantidad: {element.quantity}</span>
-        <span className="element-text">Peso Total: {element.weight} Kg</span>
+        <span className="element-text">
+          Peso Total: {element.quantity * element.weight} Kg
+        </span>
         {/* <span className="element-text2">
 					Peso: {element.weight} Volumen: {element.volume}
 				</span> */}
