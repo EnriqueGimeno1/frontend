@@ -16,7 +16,7 @@ export const OrderSelectionList = ({
           ? ordersInfo.map((element, index) => {
               return (
                 <OrderListElement
-                  key={index}
+                  key={element._id}
                   props={{
                     element: { ...element },
                     ordersInfo,

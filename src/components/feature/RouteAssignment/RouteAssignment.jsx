@@ -217,9 +217,9 @@ export const RouteAssignment = () => {
   }, []);
 
   //   Automatically updating selectedPackages
-  useEffect(() => {
-    updateSelectedPackages();
-  }, [selectedOrder, updateSelectedPackages]);
+  // useEffect(() => {
+  //   updateSelectedPackages();
+  // }, [selectedOrder, updateSelectedPackages]);
 
   useEffect(() => {
     console.log("weight", selectedPackagesWeight);
@@ -324,6 +324,8 @@ export const RouteAssignment = () => {
     setSelectedPackagesVolume,
     selectedPackagesWeight,
     setSelectedPackagesWeight,
+    selectedPackages,
+    setSelectedPackages,
   };
 
   //   Capacity props

@@ -87,7 +87,7 @@ export const OrderListElement = ({
         return order;
       })
     );
-
+    console.log(element);
     setSelectedOrder({ ...element });
   }, [element, setOrdersInfo, setSelectedOrder]);
 

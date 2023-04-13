@@ -9,6 +9,8 @@ export const PackageListElement = ({
     setSelectedOrder,
     ordersInfo,
     setOrdersInfo,
+    selectedPackages,
+    setSelectedPackages,
   },
 }) => {
   //   console.log(selectedOrder);
@@ -29,18 +31,55 @@ export const PackageListElement = ({
             if (task._id === _id) {
               return { ...task, checked: !task.checked };
             }
-            return task;
+            return { ...task };
           });
-
+          return { ...order, tasks: updatedTasks };
           //   setOrdersInfo({...ordersInfo, tasks: updatedTasks})
+        } else {
+          return { ...order };
         }
-        return { ...order, tasks: updatedTasks };
       });
       console.log("updatedOrdersInfo", updatedOrdersInfo);
       setOrdersInfo(updatedOrdersInfo);
-      setSelectedOrder({ ...selectedOrder, tasks: updatedTasks });
+      const updatedSelectedOrder = { ...selectedOrder, tasks: updatedTasks };
+      setSelectedOrder(updatedSelectedOrder);
+
+      // Update selected packages
+      setSelectedPackages((selectedPackages) => {
+        const updatedSelectedPackages = [...selectedPackages];
+        const checkedTasks = updatedSelectedOrder.tasks.filter(
+          (task) => task.checked
+        );
+        if (checkedTasks.length > 0) {
+          const selectedOrderIndex = updatedSelectedPackages.findIndex(
+            (order) => order._id === updatedSelectedOrder._id
+          );
+          if (selectedOrderIndex !== -1) {
+            updatedSelectedPackages[selectedOrderIndex].tasks = checkedTasks;
+          } else {
+            updatedSelectedPackages.push({
+              ...updatedSelectedOrder,
+              tasks: checkedTasks,
+            });
+          }
+        } else {
+          const selectedOrderIndex = updatedSelectedPackages.findIndex(
+            (order) => order._id === updatedSelectedOrder._id
+          );
+          if (selectedOrderIndex !== -1) {
+            updatedSelectedPackages.splice(selectedOrderIndex, 1);
+          }
+        }
+        return updatedSelectedPackages;
+      });
     },
-    [ordersInfo, selectedOrder, setOrdersInfo, setSelectedOrder]
+    [
+      ordersInfo,
+      selectedOrder,
+      setOrdersInfo,
+      setSelectedOrder,
+      setSelectedPackages,
+    ]
   );
 
   return (
