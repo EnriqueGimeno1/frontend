@@ -256,7 +256,7 @@ export const RouteAssignment = () => {
         weightPercentage =
           (selectedPackagesWeight / checkedDriver.vehicleWeight) * 100;
         volumePercentage =
-          (selectedPackagesWeight / checkedDriver.vehicleWeight) * 100;
+          (selectedPackagesVolume / checkedDriver.vehicleVolume) * 100;
       }
     }
 
