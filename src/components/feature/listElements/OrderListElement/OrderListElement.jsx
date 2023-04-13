@@ -108,7 +108,9 @@ export const OrderListElement = ({
       <div className="info-container">
         <span className="element-title">{element.orderNumber}</span>
         <span className="element-text">{element.clientName}</span>
-        <span className="element-text2">{element.numberOfPackages}</span>
+        <span className="element-text2">
+          Nº Paquetes: {element.numberOfPackages}
+        </span>
       </div>
       {/* <div className="check-box">Check</div> */}
     </div>
