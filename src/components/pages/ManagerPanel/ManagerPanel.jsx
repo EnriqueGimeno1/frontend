@@ -6,33 +6,49 @@ import "./ManagerPanel.css";
 import { Navigate } from "react-router-dom";
 
 export default function ManagerPanel(props) {
-	const userActions = [
-		{
-			text: "Usuarios",
-			path: "create-destination",
-		},
-		{
-			text: "Rutas",
-			path: "route-assignment",
-		},
-	];
+  const userActions = [
+    {
+      text: "Usuarios",
+      path: "register-user",
+    },
+    {
+      text: "Clientes",
+      path: "register-client",
+    },
+    {
+      text: "Puntos de Entrega",
+      path: "register-destination",
+    },
+    {
+      text: "Ordenes",
+      path: "register-order",
+    },
+    {
+      text: "Vehículos",
+      path: "register-vehicle",
+    },
+    {
+      text: "Rutas",
+      path: "route-assignment",
+    },
+  ];
 
-	const sidebarProps = { ...props, userActions: userActions };
+  const sidebarProps = { ...props, userActions: userActions };
 
-	if (
-		typeof props.authenticatedUser !== "undefined" &&
-		props.authenticatedUser.User.accessLevel === "Gerente de Sucursal"
-	) {
-		return (
-			<div className="panel-container">
-				<TopNavBar />
-				<div className="bottom-panel">
-					<Sidebar {...sidebarProps} />
-					<FormContainer />
-				</div>
-			</div>
-		);
-	} else {
-		return <Navigate to="/" />;
-	}
+  if (
+    typeof props.authenticatedUser !== "undefined" &&
+    props.authenticatedUser.User.accessLevel === "Gerente de Sucursal"
+  ) {
+    return (
+      <div className="panel-container">
+        <TopNavBar />
+        <div className="bottom-panel">
+          <Sidebar {...sidebarProps} />
+          <FormContainer />
+        </div>
+      </div>
+    );
+  } else {
+    return <Navigate to="/" />;
+  }
 }

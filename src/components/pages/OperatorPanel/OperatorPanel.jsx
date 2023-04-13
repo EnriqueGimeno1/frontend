@@ -6,37 +6,33 @@ import "./OperatorPanel.css";
 import { Navigate } from "react-router-dom";
 
 export default function OperatorPanel(props) {
-	const userActions = [
-		{
-			text: "Sucursales",
-			path: "create-branch-office",
-		},
-		{
-			text: "Usuarios",
-			path: "create-destination",
-		},
-		{
-			text: "Rutas",
-			path: "route-assignment",
-		},
-	];
+  const userActions = [
+    {
+      text: "Gestión de Rutas",
+      path: "create-destination",
+    },
+    {
+      text: "Asignación de Rutas",
+      path: "route-assignment",
+    },
+  ];
 
-	const sidebarProps = { ...props, userActions: userActions };
+  const sidebarProps = { ...props, userActions: userActions };
 
-	if (
-		typeof props.authenticatedUser !== "undefined" &&
-		props.authenticatedUser.User.accessLevel === "Operador de Transporte"
-	) {
-		return (
-			<div className="panel-container">
-				<TopNavBar />
-				<div className="bottom-panel">
-					<Sidebar {...sidebarProps} />
-					<FormContainer />
-				</div>
-			</div>
-		);
-	} else {
-		return <Navigate to="/" />;
-	}
+  if (
+    typeof props.authenticatedUser !== "undefined" &&
+    props.authenticatedUser.User.accessLevel === "Operador de Transporte"
+  ) {
+    return (
+      <div className="panel-container">
+        <TopNavBar />
+        <div className="bottom-panel">
+          <Sidebar {...sidebarProps} />
+          <FormContainer />
+        </div>
+      </div>
+    );
+  } else {
+    return <Navigate to="/" />;
+  }
 }

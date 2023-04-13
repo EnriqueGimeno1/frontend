@@ -12,32 +12,52 @@ import { useState } from "react";
 import ManagerPanel from "./components/pages/ManagerPanel/ManagerPanel";
 import OperatorPanel from "./components/pages/OperatorPanel/OperatorPanel";
 import DriverPanel from "./components/pages/DriverPanel/DriverPanel";
+import {
+  CreateClient,
+  CreateDestination,
+  CreateUser,
+  CreateVehicle,
+} from "./components/feature/forms";
+import { CreateOrder } from "./components/feature/forms/CreateOrder";
 
 function App() {
-	let activeClassName = "nav-active";
-	const [authenticatedUser, setAuthenticatedUser] = useState();
+  let activeClassName = "nav-active";
+  const [authenticatedUser, setAuthenticatedUser] = useState();
 
-	const props = { authenticatedUser, setAuthenticatedUser };
+  const props = { authenticatedUser, setAuthenticatedUser };
 
-	return (
-		<div className="App">
-			<Routes>
-				<Route index element={<Login {...props} />} />
-				<Route path="admin-panel" element={<AdminPanel {...props} />}></Route>
-				<Route
-					path="manager-panel"
-					element={<ManagerPanel {...props} />}
-				></Route>
-				<Route path="operator-panel" element={<OperatorPanel {...props} />}>
-					<Route path="route-assignment" element={<RouteAssignment />} />
-				</Route>
-				<Route path="driver-panel" element={<DriverPanel {...props} />}></Route>
-				<Route path="/*" element={<Navigate to="/" />} />
-			</Routes>
+  return (
+    <div className="App">
+      <Routes>
+        <Route index element={<Login {...props} />} />
+        {/* RUTA - Administrador */}
+        <Route path="admin-panel" element={<AdminPanel {...props} />}>
+          <Route path="register-user" element={<CreateUser />} />
+          <Route path="register-client" element={<CreateClient />} />
+          <Route path="register-order" element={<CreateOrder />} />
+          <Route path="register-vehicle" element={<CreateVehicle />} />
+        </Route>
+        {/* RUTA - Gerente */}
+        <Route path="manager-panel" element={<ManagerPanel {...props} />}>
+          {" "}
+          <Route path="register-user" element={<CreateUser />} />
+          <Route path="register-client" element={<CreateClient />} />
+          <Route path="register-destination" element={<CreateDestination />} />
+          <Route path="register-order" element={<CreateOrder />} />
+          <Route path="register-vehicle" element={<CreateVehicle />} />
+        </Route>
+        {/* RUTA - Operador */}
+        <Route path="operator-panel" element={<OperatorPanel {...props} />}>
+          <Route path="route-assignment" element={<RouteAssignment />} />
+        </Route>
+        {/* RUTA - Conductor */}
+        <Route path="driver-panel" element={<DriverPanel {...props} />}></Route>
+        {/* RUTA - Por Defecto */}
+        <Route path="/*" element={<Navigate to="/" />} />
+      </Routes>
 
-			{/* TEMPORAL FLOATING MENU */}
-			<div className="app-menu">
-				<header>{/* <h1 className="App-header">COMPONENTS</h1> */}</header>
+      {/* TEMPORAL FLOATING MENU */}
+      {/* <div className="app-menu">
 				<nav>
 					<NavLink
 						to=""
@@ -72,9 +92,9 @@ function App() {
 						Route
 					</NavLink>
 				</nav>
-			</div>
-		</div>
-	);
+			</div> */}
+    </div>
+  );
 }
 
 export default App;
