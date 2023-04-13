@@ -309,6 +309,9 @@ export const RouteAssignment = () => {
   const capacityProps = {
     weightBarWidth,
     volumeBarWidth,
+    checkedDriver,
+    selectedPackagesWeight,
+    selectedPackagesVolume,
   };
 
   return (
