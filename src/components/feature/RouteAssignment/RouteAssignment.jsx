@@ -297,14 +297,14 @@ export const RouteAssignment = () => {
         ordersNumbers,
       });
     });
-    console.log("Optimized ruote info: ", result);
+    // console.log("Optimized route info: ", result);
     return result;
   }, [selectedPackages, optimizedRoute, sourceStorageData, vehicleSpeed]);
 
   useEffect(() => {
     if (optimizedRoute.length > 0) {
       // console.log("optimizedRoute", optimizedRoute);
-      generateOptimizedRouteInfo();
+      setAssignmentInfo(generateOptimizedRouteInfo());
     }
   }, [generateOptimizedRouteInfo, optimizedRoute]);
 
@@ -427,56 +427,66 @@ export const RouteAssignment = () => {
 
   return (
     <div className="assignment-container">
-      <div className="selection-panel-container">
-        <DriverSelectionList {...driversProps} />
-        <OrderSelectionList {...ordersProps} />
-        <PackageSelectionList {...packageProps} />
-      </div>
-      <div className="load-bar-section">
-        <LoadBar {...capacityProps} />
-      </div>
-      <div className="bottom-section">
-        <div className="bottom-selection-container">
-          <div className="details-container">
-            <span className="selection-info">
-              {/* {JSON.stringify(driversInfo)} */}
-              Cantidad de Destinos: {numberOfDestinations}
-            </span>
-            <span className="selection-info">
-              Cantidad de paquetes: {packagesQuantity}
-            </span>
-            {/* Estimated delivery date */}
-            <span className="selection-info">
-              Hora de salida estimada:{" "}
-              {deliveryDate.toLocaleTimeString("en-US", {
-                hour: "2-digit",
-                minute: "2-digit",
-                hour12: true,
-              })}
-            </span>
+      {assignmentInfo.length === 0 ? (
+        <>
+          {/* STEP 1 - Driver and Order selection */}
+          <div className="selection-panel-container">
+            <DriverSelectionList {...driversProps} />
+            <OrderSelectionList {...ordersProps} />
+            <PackageSelectionList {...packageProps} />
           </div>
-          <div className="action-container">
-            <button
-              className="button button1"
-              onClick={clearSelection}
-              disabled={
-                !checkedDriver &&
-                checkedOrders.length === 0 &&
-                selectedPackages.length === 0
-              }
-            >
-              Cancelar Selección
-            </button>
-            <button
-              className="button button2"
-              disabled={!checkedDriver || selectedPackages.length < 1}
-              onClick={handleRouteOptimizationRequest}
-            >
-              Generar Ruta
-            </button>
+          <div className="load-bar-section">
+            <LoadBar {...capacityProps} />
           </div>
-        </div>
-      </div>
+          <div className="bottom-section">
+            <div className="bottom-selection-container">
+              <div className="details-container">
+                <span className="selection-info">
+                  {/* {JSON.stringify(driversInfo)} */}
+                  Cantidad de Destinos: {numberOfDestinations}
+                </span>
+                <span className="selection-info">
+                  Cantidad de paquetes: {packagesQuantity}
+                </span>
+                {/* Estimated delivery date */}
+                <span className="selection-info">
+                  Hora de salida estimada:{" "}
+                  {deliveryDate.toLocaleTimeString("en-US", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                  })}
+                </span>
+              </div>
+              <div className="action-container">
+                <button
+                  className="button button1"
+                  onClick={clearSelection}
+                  disabled={
+                    !checkedDriver &&
+                    checkedOrders.length === 0 &&
+                    selectedPackages.length === 0
+                  }
+                >
+                  Cancelar Selección
+                </button>
+                <button
+                  className="button button2"
+                  disabled={!checkedDriver || selectedPackages.length < 1}
+                  onClick={handleRouteOptimizationRequest}
+                >
+                  Generar Ruta
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          {/* Part 2 - Generated Route Review */}
+          {JSON.stringify(assignmentInfo)}
+        </>
+      )}
     </div>
   );
 };
