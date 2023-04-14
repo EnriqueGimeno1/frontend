@@ -114,3 +114,9 @@
   background-color: hsl(189, 50%, 60%);
   border-radius: 0 5px 5px 0;
 }
+
+.no-route {
+  padding-top: 19rem;
+  font-size: 80px;
+  text-transform: uppercase;
+}
