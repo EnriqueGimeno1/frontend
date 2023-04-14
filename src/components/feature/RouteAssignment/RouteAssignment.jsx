@@ -7,6 +7,7 @@ import { DriverSelectionList } from "../selectionLists/DriverSelectionList/Drive
 import { OrderSelectionList } from "../selectionLists/OrderSelectionList/OrderSelectionList";
 import { PackageSelectionList } from "../selectionLists/PackageSelectionList/PackageSelectionList";
 import DeliveryStepCard from "../../shared/DeliveryStepCard/DeliveryStepCard";
+import { toast } from "react-toastify";
 
 export const RouteAssignment = () => {
   // Driver data from the server
@@ -328,6 +329,7 @@ export const RouteAssignment = () => {
         newRouteObject
       );
       console.log(response.data);
+      toast.success("Ruta generada exitosamente");
     } catch (error) {
       console.error(error);
     }

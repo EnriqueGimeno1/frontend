@@ -19,6 +19,8 @@ import {
   CreateVehicle,
 } from "./components/feature/forms";
 import { CreateOrder } from "./components/feature/forms/CreateOrder";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   let activeClassName = "nav-active";
@@ -28,6 +30,7 @@ function App() {
 
   return (
     <div className="App">
+      <ToastContainer className="dark-toast" position="bottom-right" />
       <Routes>
         <Route index element={<Login {...props} />} />
         {/* RUTA - Administrador */}
