@@ -1,6 +1,7 @@
 import "./RouteAssignment.css";
 import { LoadBar } from "../LoadBar/LoadBar";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState, useCallback } from "react";
 import { DriverSelectionList } from "../selectionLists/DriverSelectionList/DriverSelectionList";
 import { OrderSelectionList } from "../selectionLists/OrderSelectionList/OrderSelectionList";
@@ -302,6 +303,38 @@ export const RouteAssignment = () => {
     return result;
   }, [selectedPackages, optimizedRoute, sourceStorageData, vehicleSpeed]);
 
+  const createRouteObject = useCallback(() => {
+    console.log("checkedDriver", checkedDriver);
+    console.log("assignmentInfo", assignmentInfo);
+    if (!checkedDriver || !assignmentInfo) return null;
+
+    const newObject = {
+      driverId: checkedDriver.userId,
+      service: uuidv4(),
+      status: "En Proceso",
+      steps: JSON.parse(JSON.stringify(assignmentInfo)),
+    };
+    return newObject;
+  }, [assignmentInfo, checkedDriver]);
+
+  // Confirm Route assignation
+  const handleConfirmRouteAssignment = useCallback(async () => {
+    const newRouteObject = createRouteObject();
+    if (!newRouteObject) return;
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3333/delivery-routes",
+        newRouteObject
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+    // setAssignmentInfo([]);
+    // setOptimizedRoute([]);
+  }, [createRouteObject]);
+
   // Cancel Route assignation
   const handleCancelRouteAssignment = useCallback(() => {
     setAssignmentInfo([]);
@@ -502,7 +535,10 @@ export const RouteAssignment = () => {
             return <DeliveryStepCard {...deliveryProps} />;
           })}
           <div className="route-confirmation-panel">
-            <button className="route-confirmation-button assignment-confirmation-button">
+            <button
+              className="route-confirmation-button assignment-confirmation-button"
+              onClick={handleConfirmRouteAssignment}
+            >
               Asignar Ruta
             </button>
             <button
