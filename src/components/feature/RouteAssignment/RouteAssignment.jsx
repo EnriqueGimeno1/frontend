@@ -302,6 +302,12 @@ export const RouteAssignment = () => {
     return result;
   }, [selectedPackages, optimizedRoute, sourceStorageData, vehicleSpeed]);
 
+  // Cancel Route assignation
+  const handleCancelRouteAssignment = useCallback(() => {
+    setAssignmentInfo([]);
+    setOptimizedRoute([]);
+  }, []);
+
   useEffect(() => {
     if (optimizedRoute.length > 0) {
       // console.log("optimizedRoute", optimizedRoute);
@@ -490,9 +496,22 @@ export const RouteAssignment = () => {
       ) : (
         <>
           {/* Part 2 - Generated Route Review */}
-          {assignmentInfo.map((task) => {
-            return <DeliveryStepCard {...task} />;
+          {assignmentInfo.map((task, index) => {
+            let deliveryProps = { ...task };
+            deliveryProps.index = index;
+            return <DeliveryStepCard {...deliveryProps} />;
           })}
+          <div className="route-confirmation-panel">
+            <button className="route-confirmation-button assignment-confirmation-button">
+              Asignar Ruta
+            </button>
+            <button
+              className="route-confirmation-button cancel-assignment-button"
+              onClick={handleCancelRouteAssignment}
+            >
+              Cancelar
+            </button>
+          </div>
         </>
       )}
     </div>
