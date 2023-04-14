@@ -1,0 +1,110 @@
+.route-step-container {
+  color: hsl(189, 80%, 80%);
+  background-color: hsl(189, 100%, 20%);
+  /* background-color: hsl(189, 50%, 70%); */
+  border: none;
+  border-radius: 9px;
+  box-shadow: 0 0 5px 0 hsl(188, 100%, 7.5%);
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Left Panel */
+.left-step-panel {
+  display: flex;
+}
+.step-number-container {
+  /* border-radius: 50%; */
+  border-radius: 5px 0 0 5px;
+  flex: 1;
+  background-color: hsl(189, 50%, 60%);
+  /* height: 7rem; */
+  width: 7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 6rem;
+  font-weight: bold;
+  padding-bottom: 1rem;
+  color: hsl(189, 100%, 18%);
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.4);
+}
+
+.step-info {
+  display: flex;
+}
+
+/* Info Panel */
+.driver-step-info-panel {
+  padding-left: 2rem;
+  padding-bottom: 0.8rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+
+  background-color: hsl(189, 50%, 70%);
+  color: hsl(189, 100%, 18%);
+
+  font-size: 19px;
+}
+
+.info-title {
+  font-weight: bold;
+}
+
+.info-text {
+  padding-left: 0.5rem;
+}
+
+.step-info-title {
+  font-size: 24px;
+}
+
+/* Buttons */
+.driver-action-button {
+  flex: 1;
+  font-family: inherit;
+  color: inherit;
+  text-transform: uppercase;
+  font-size: 16.8px;
+  outline: none;
+  border: 0;
+  /* border-radius: 0.2rem; */
+  font-weight: 100;
+  padding: 10px 20px;
+  padding-bottom: 12px;
+  background-color: hsl(185, 100%, 17%);
+  color: hsl(189, 80%, 80%);
+  cursor: pointer;
+  /* margin-bottom: 0.5rem; */
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 1);
+  width: 100%;
+}
+
+.driver-action-button:first-child {
+  border-radius: 0 0.2rem 0 0;
+}
+
+.driver-action-button:last-child {
+  border-radius: 0 0 0.2rem 0;
+}
+
+.driver-action-button:hover {
+  background-color: hsl(185, 100%, 21%);
+}
+
+.driver-action-button:active {
+  background-color: hsl(185, 100%, 15%);
+  color: rgb(143, 219, 215);
+}
+
+.driver-action-buttons {
+  display: flex;
+  flex-direction: column;
+  background-color: hsl(189, 50%, 60%);
+  border-radius: 0 5px 5px 0;
+}

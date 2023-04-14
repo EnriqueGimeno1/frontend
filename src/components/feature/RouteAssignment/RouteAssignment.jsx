@@ -330,6 +330,8 @@ export const RouteAssignment = () => {
       );
       console.log(response.data);
       toast.success("Ruta generada exitosamente");
+      setAssignmentInfo([]);
+      setOptimizedRoute([]);
     } catch (error) {
       console.error(error);
     }
