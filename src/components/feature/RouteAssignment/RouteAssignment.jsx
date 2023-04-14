@@ -5,6 +5,7 @@ import { useEffect, useState, useCallback } from "react";
 import { DriverSelectionList } from "../selectionLists/DriverSelectionList/DriverSelectionList";
 import { OrderSelectionList } from "../selectionLists/OrderSelectionList/OrderSelectionList";
 import { PackageSelectionList } from "../selectionLists/PackageSelectionList/PackageSelectionList";
+import DeliveryStepCard from "../../shared/DeliveryStepCard/DeliveryStepCard";
 
 export const RouteAssignment = () => {
   // Driver data from the server
@@ -425,6 +426,11 @@ export const RouteAssignment = () => {
     selectedPackagesVolume,
   };
 
+  // Generated route props
+  const generatedRouteProps = {
+    assignmentInfo,
+  };
+
   return (
     <div className="assignment-container">
       {assignmentInfo.length === 0 ? (
@@ -484,7 +490,9 @@ export const RouteAssignment = () => {
       ) : (
         <>
           {/* Part 2 - Generated Route Review */}
-          {JSON.stringify(assignmentInfo)}
+          {assignmentInfo.map((task) => {
+            return <DeliveryStepCard {...task} />;
+          })}
         </>
       )}
     </div>
