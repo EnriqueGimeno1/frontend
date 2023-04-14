@@ -10,6 +10,11 @@ export default function RouteStepCard({
   tasks,
   ordersNumbers,
   index,
+  arrivalDate,
+  status,
+  stepsCount,
+  updateStepStatus,
+  updateArrivalDate,
 }) {
   return (
     <div className="route-step-container">
@@ -43,8 +48,24 @@ export default function RouteStepCard({
         </div>
       </div>
       <div className="driver-action-buttons">
-        <button className="driver-action-button">Marcar llegada</button>
-        <button className="driver-action-button">Completar Entrega</button>
+        <button
+          className="driver-action-button"
+          disabled={arrivalDate !== ""}
+          onClick={() => updateArrivalDate(index)}
+        >
+          Marcar llegada
+        </button>
+        {index < stepsCount - 1 ? (
+          <button
+            className="driver-action-button"
+            disabled={status === "Entregado"}
+            onClick={() => updateStepStatus(index)}
+          >
+            Completar Entrega
+          </button>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

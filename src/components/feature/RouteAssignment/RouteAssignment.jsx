@@ -290,6 +290,8 @@ export const RouteAssignment = () => {
       let ordersNumbers = packagesAtDestination.map(
         (order) => order.orderNumber
       );
+      let arrivalDate = "";
+      let status = "Pendiente";
       result.push({
         originPointId: originPointId,
         destinationPointId: destinationPointId,
@@ -298,6 +300,8 @@ export const RouteAssignment = () => {
         totalNumberOfPackages,
         tasks,
         ordersNumbers,
+        arrivalDate,
+        status,
       });
     });
     // console.log("Optimized route info: ", result);

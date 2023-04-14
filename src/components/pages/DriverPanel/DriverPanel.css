@@ -16,3 +16,7 @@
   /* background-color: black; */
   padding: 1rem;
 }
+
+.top-driver-panel {
+  display: flex;
+}

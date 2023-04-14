@@ -8,6 +8,7 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState, useCallback } from "react";
 import RouteStepCard from "../../shared/RouteStepCard/RouteStepCard";
+import { UserProfile } from "./../../shared/UserProfile/UserProfile";
 
 export default function DriverPanel(props) {
   const [assignedRouteInfo, setAssignedRouteInfo] = useState({});
@@ -50,6 +51,50 @@ export default function DriverPanel(props) {
     }
   }, []);
 
+  const updateArrivalDate = useCallback(
+    (index) => {
+      const updatedRouteInfo = {
+        driverId: assignedRouteInfo.driverId,
+        service: assignedRouteInfo.service,
+        status: assignedRouteInfo.status,
+        steps: assignedRouteInfo.steps.map((step, i) => {
+          if (i === index) {
+            return {
+              ...step,
+              arrivalDate: new Date().toISOString(),
+            };
+          }
+          return step;
+        }),
+      };
+      setAssignedRouteInfo(updatedRouteInfo);
+      return updatedRouteInfo;
+    },
+    [assignedRouteInfo]
+  );
+
+  const updateStepStatus = useCallback(
+    (index) => {
+      const updatedRouteInfo = {
+        driverId: assignedRouteInfo.driverId,
+        service: assignedRouteInfo.service,
+        status: assignedRouteInfo.status,
+        steps: assignedRouteInfo.steps.map((step, i) => {
+          if (i === index) {
+            return {
+              ...step,
+              status: "Entregado",
+            };
+          }
+          return step;
+        }),
+      };
+      setAssignedRouteInfo(updatedRouteInfo);
+      return updatedRouteInfo;
+    },
+    [assignedRouteInfo]
+  );
+
   if (
     typeof props.authenticatedUser !== "undefined" &&
     props.authenticatedUser.User.accessLevel === "Conductor"
@@ -57,6 +102,7 @@ export default function DriverPanel(props) {
     return (
       <div className="panel-container">
         <TopNavBar />
+
         <div className="bottom-panel">
           {/* <Sidebar {...sidebarProps} /> */}
           {/* <FormContainer /> */}
@@ -65,6 +111,10 @@ export default function DriverPanel(props) {
               assignedRouteInfo.steps.map((step, index) => {
                 let stepProps = { ...step };
                 stepProps.index = index;
+                stepProps.stepsCount = assignedRouteInfo.steps.length;
+                stepProps.assignedRouteInfo = { ...assignedRouteInfo };
+                stepProps.updateStepStatus = updateStepStatus;
+                stepProps.updateArrivalDate = updateArrivalDate;
                 return <RouteStepCard {...stepProps} />;
               })
             ) : (
