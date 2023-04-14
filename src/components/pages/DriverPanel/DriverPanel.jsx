@@ -52,7 +52,7 @@ export default function DriverPanel(props) {
   }, []);
 
   const updateArrivalDate = useCallback(
-    (index) => {
+    async (index) => {
       const updatedRouteInfo = {
         driverId: assignedRouteInfo.driverId,
         service: assignedRouteInfo.service,
@@ -67,14 +67,33 @@ export default function DriverPanel(props) {
           return step;
         }),
       };
-      setAssignedRouteInfo(updatedRouteInfo);
-      return updatedRouteInfo;
+      const url = `http://localhost:3333/delivery-routes/${assignedRouteInfo._id}`;
+      try {
+        const response = await axios.patch(url, updatedRouteInfo);
+        console.log(response.data);
+        axios({
+          method: "get",
+          url: "http://localhost:3333/delivery-routes",
+          responseType: "json",
+        }).then(function (response) {
+          console.log(response.data);
+          let loggedUserId = props.authenticatedUser.User.userId;
+          let assignedRoute = response.data.find(
+            (route) =>
+              route.driverId === loggedUserId && route.status === "En Proceso"
+          );
+          setAssignedRouteInfo(assignedRoute);
+          // setDriversInfo(transformedDriversInfo);
+        });
+      } catch (error) {
+        console.error(error);
+      }
     },
-    [assignedRouteInfo]
+    [assignedRouteInfo, props]
   );
 
   const updateStepStatus = useCallback(
-    (index) => {
+    async (index) => {
       const updatedRouteInfo = {
         driverId: assignedRouteInfo.driverId,
         service: assignedRouteInfo.service,
@@ -89,10 +108,29 @@ export default function DriverPanel(props) {
           return step;
         }),
       };
-      setAssignedRouteInfo(updatedRouteInfo);
-      return updatedRouteInfo;
+      const url = `http://localhost:3333/delivery-routes/${assignedRouteInfo._id}`;
+      try {
+        const response = await axios.patch(url, updatedRouteInfo);
+        console.log(response.data);
+        axios({
+          method: "get",
+          url: "http://localhost:3333/delivery-routes",
+          responseType: "json",
+        }).then(function (response) {
+          console.log(response.data);
+          let loggedUserId = props.authenticatedUser.User.userId;
+          let assignedRoute = response.data.find(
+            (route) =>
+              route.driverId === loggedUserId && route.status === "En Proceso"
+          );
+          setAssignedRouteInfo(assignedRoute);
+          // setDriversInfo(transformedDriversInfo);
+        });
+      } catch (error) {
+        console.error(error);
+      }
     },
-    [assignedRouteInfo]
+    [assignedRouteInfo, props]
   );
 
   if (

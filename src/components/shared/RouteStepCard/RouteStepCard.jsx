@@ -58,7 +58,7 @@ export default function RouteStepCard({
         {index < stepsCount - 1 ? (
           <button
             className="driver-action-button"
-            disabled={status === "Entregado"}
+            disabled={status === "Entregado" || arrivalDate === ""}
             onClick={() => updateStepStatus(index)}
           >
             Completar Entrega
