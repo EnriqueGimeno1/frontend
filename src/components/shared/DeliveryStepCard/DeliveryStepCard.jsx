@@ -19,7 +19,7 @@ export default function DeliveryStepCard({
       <div className="step-info-panel">
         {totalNumberOfPackages === 0 ? (
           <div className="step-info step-info-title">
-            <div className="info-title">Almacén</div>
+            <div className="info-title"> Regreso a Almacén</div>
           </div>
         ) : (
           ""
